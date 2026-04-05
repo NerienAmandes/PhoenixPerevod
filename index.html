@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Переводы песен</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1>🔥 Fire Phoenix Team — Переводы песен</h1>
+    <nav>
+        <a href="index.html">Главная</a>
+    </nav>
+</header>
+
+<main>
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="free">Свободен</button>
+        <button class="filter-btn" data-filter="in_progress">В работе</button>
+        <button class="filter-btn" data-filter="taken">Занят</button>
+        <button class="filter-btn" data-filter="done">Готов</button>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Поиск по названию или исполнителю...">
+    </div>
+
+    <div id="translatorsList"></div>
+</main>
+
+<script src="songs.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
