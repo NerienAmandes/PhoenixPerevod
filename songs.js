@@ -3320,7 +3320,7 @@ We fell in October`
                     id: 42,
                     artist: "Imogen Heap",
                     title: "Imogen Heap - Headlock",
-                    status: "free",
+                    status: "done",
                     translation: `Край мерцания, зеленая трава
 Погода снова уносит туда
 Приключенья, где лица в конденсате
@@ -3405,7 +3405,7 @@ We fell in October`
                     id: 43,
                     artist: "Mamika Suzuki",
                     title: "mamika suzuki - chuwa",
-                    status: "free",
+                    status: "done",
                     translation: `По шаблону жить пыталась я, эту роль взяла на себя
 Видела беспомощность чувств я, под ногами листья
 Не торопясь ступая, краски этого дня
@@ -3483,7 +3483,7 @@ We fell in October`
                     id: 45,
                     artist: "Chris Isaak",
                     title: "Wicked game",
-                    status: "free",
+                    status: "in_progress",
                     translation: `Мир весь в огне
 И ты лишь способна спасти
 У глупых - дела, и все это из-за любви.
@@ -3656,7 +3656,7 @@ We fell in October`
                 },
                 {
                     id: 48,
-                    artist: "4  TOWN",
+                    artist: "HazbinHotel",
                     title: "Nobody Like You",
                     status: "free",
                     url: "https://youtu.be/mT0kN0_XumA",
@@ -3736,7 +3736,7 @@ We fell in October`
                 {
                     id: 49,
                     artist: "Vinz Ceazar",
-                    title: "King of Hell",
+                    title: "King of Hell(male)",
                     status: "free",
                     url: "https://youtu.be/UwaQrOcxdFk",
                     translation: `Ты как задира школьный, ищешь вниманья
@@ -3761,8 +3761,8 @@ We fell in October`
                 {
                     id: 50,
                     artist: "Vinz Ceazar",
-                    title: "King of Hell",
-                    status: "free",
+                    title: "King of Hell(female)",
+                    status: "taken",
                     translation: `Ты как задира школьный, ищешь вниманья
 Директоршей я стану, изменю расписанье
 Надеюсь, ты закончил, впору прозвенеть звонку. Ха-ха! Динь-динь.
@@ -4611,7 +4611,7 @@ We fell in October`
                 },
                 {
                     id: 60,
-                    artist: "Project Sekai",
+                    artist: "Expedition33",
                     title: "Until Next Life",
                     status: "done",
                     translation: `Друг мой, путь был далек
@@ -4723,68 +4723,6 @@ We fell in October`
                     artist: "Poor Mans Poison",
                     title: "Hell's Comin' With Me - Poor Mans Poison",
                     status: "free",
-                    url: "https://youtu.be/bTHN1eWN7iU",
-                    translation: `Он оглянулся неспеша и вдруг смех.
-И вслед: "ты же знаешь, что тебе не рады здесь
-Так покинь же нас всех"
-
-Он вытер кровь всю с лица, на колени встал, и вдруг сказал
-Им вслед: "не заметите, как вернусь я"
-
-И ад будет со мной.
-Ад будет со мной.
-
-На дне долины увидишь вскоре холмик.
-Обитель там для мертвой души!
-А коль прислушаешься ты
-То услышишь голос их
-Они расскажут, что живым тут не уйти.
-
-Город увидь у подножия холма.
-Секреты держат и хранят, как раба
-У них есть темный проповедник
-Пусть накажет ее, верно
-Поднимись к могиле у холма.
-
-Моей душе хорошо
-А ты гребешь лопатой деньги
-Что у нищих крадешь
-Идя в свой ад слышишь звон, мой то колокол
-Чертям бы вдвое дал, ты душу не спасешь.
-
-Через долину небольшую шел бродяга.
-Он обещал, что в город он вернётся сам.
-
-(Он вернется сам)
-Но не признали по лицу
-И пистолету на ремне
-Однако он вернулся город сжечь
-
-Сначала пламя, потом был смог
-После проповедник на веревке смолк
-Все пали ниц перед бродягой, умоляя, кто-то плакал
-Вверх кулак поднял, потом им всем сказал
-
-"Я здесь, я Го́спода рука
-Я дьявол, вы не вспомнили меня?
-Однажды я же клялся вам
-Что вновь увидите меня
-
-И ад будет, ад будет, ад
-Ад будет со мной
-
-Моей душе хорошо
-А ты гребешь лопатой деньги
-Что у нищих крадешь
-Идя в свой ад слышишь звон, мой то колокол
-
-Сказал: ад будет со мной`
-                },
-                {
-                    id: 63,
-                    artist: "Poor Mans Poison",
-                    title: "Hell's Comin' With Me - Poor Mans Poison",
-                    status: "free",
                     translation: `Он оглянулся неспеша и вдруг смех.
 И вслед: "ты же знаешь, что тебе не рады здесь
 Так покинь же нас всех"
@@ -4848,7 +4786,7 @@ We fell in October`
             name: "Necoria",
             songs: [
                 {
-                    id: 64,
+                    id: 63,
                     artist: "BABYMONSTER",
                     title: "~~BABYMONSTER - ‘WE GO UP’ M/V~~",
                     status: "done",
@@ -4966,7 +4904,7 @@ We fell in October`
 (ALL) Летим вверх!`
                 },
                 {
-                    id: 65,
+                    id: 64,
                     artist: "XLOV",
                     title: "~~1&only~~",
                     status: "in_progress",
@@ -5113,7 +5051,7 @@ Yeah yeah Нужна мне
             name: "Полина Стеценко",
             songs: [
                 {
-                    id: 66,
+                    id: 65,
                     artist: "Encanto Cast",
                     title: "~~мирабель~~",
                     status: "in_progress",
@@ -5184,7 +5122,7 @@ Yeah yeah Нужна мне
 Лучше было о Бруно!`
                 },
                 {
-                    id: 67,
+                    id: 66,
                     artist: "Dear Evan Hansen",
                     title: "~~Requiem~~",
                     status: "in_progress",
@@ -5227,7 +5165,7 @@ Yeah yeah Нужна мне
 Это Реквием LinapEm`
                 },
                 {
-                    id: 68,
+                    id: 67,
                     artist: "Disney Descendants",
                     title: "Flight of Our Lives",
                     status: "in_progress",
@@ -5307,7 +5245,7 @@ Yeah yeah Нужна мне
 На берегу мы вдоем!`
                 },
                 {
-                    id: 69,
+                    id: 68,
                     artist: "Laura Thorn",
                     title: "~~la poupée monte le son~~",
                     status: "in_progress",
@@ -5354,10 +5292,10 @@ Yeah yeah Нужна мне
 Громче, все громче, все громче`
                 },
                 {
-                    id: 70,
+                    id: 69,
                     artist: "Ben Platt",
                     title: "~~Wawing through a window ~~",
-                    status: "free",
+                    status: "done",
                     translation: `Я могу тормозить
 До того, как ключ поверну,
 Как ошибку совершить,
@@ -5424,7 +5362,7 @@ Yeah yeah Нужна мне
             name: "Сэнну",
             songs: [
                 {
-                    id: 71,
+                    id: 70,
                     artist: "HOYO-MiX",
                     title: "『 Nod-Krai』- Genshin",
                     status: "free",
@@ -5444,7 +5382,7 @@ Yeah yeah Нужна мне
 Под луной станет мир чист и ясен вновь.`
                 },
                 {
-                    id: 72,
+                    id: 71,
                     artist: "Fall Out Boy",
                     title: "『 Fall Out Boy 』-  The Phoenix",
                     status: "free",
@@ -5517,7 +5455,7 @@ Yeah yeah Нужна мне
 к войне готовься!`
                 },
                 {
-                    id: 73,
+                    id: 72,
                     artist: "Givurita",
                     title: "『 Vell 』- Givurita",
                     status: "free",
@@ -5574,7 +5512,7 @@ Yeah yeah Нужна мне
   в данном контексте—спокойствие, безопасность`
                 },
                 {
-                    id: 74,
+                    id: 73,
                     artist: "Mika Nakashima",
                     title: "『 KISS OF DEATH 』- Mika Nakashima -",
                     status: "free",
@@ -5612,7 +5550,7 @@ Yeah yeah Нужна мне
             name: "Влад",
             songs: [
                 {
-                    id: 75,
+                    id: 74,
                     artist: "Hazbin Hotel",
                     title: "~~Losing Streak ~~",
                     status: "done",
@@ -5645,7 +5583,7 @@ Oh, no
 Удачи вам там, ребята.`
                 },
                 {
-                    id: 76,
+                    id: 75,
                     artist: "Hazbin Hotel",
                     title: "Brighter",
                     status: "free",
@@ -5709,7 +5647,7 @@ Oh, no
 Ярче!`
                 },
                 {
-                    id: 77,
+                    id: 76,
                     artist: "Radiohead",
                     title: "Creep",
                     status: "free",
@@ -5766,7 +5704,7 @@ Oh, no
 Мне тут не место`
                 },
                 {
-                    id: 78,
+                    id: 77,
                     artist: "Hazbin Hotel",
                     title: "~~Love in a Bottle  и девочки~~",
                     status: "done",
@@ -5824,7 +5762,7 @@ Oh, no
 Ещё одну!`
                 },
                 {
-                    id: 79,
+                    id: 78,
                     artist: "Emigrate",
                     title: "Rainbow - Emigrate",
                     status: "taken",
@@ -5919,10 +5857,10 @@ Oh, no
 -`
                 },
                 {
-                    id: 80,
-                    artist: "TryHardNinja",
-                    title: "FNAF SL CIRCUS BABY SONG \"Don't Come Crying\"",
-                    status: "free",
+                    id: 79,
+                    artist: "FNAF",
+                    title: "FNAF SL CIRCUS BABY SONG Don't Come Crying",
+                    status: "taken",
                     translation: `Куплет 1:
 Скандируйте же все, наш гость уже здесь
 Уйдёт ещё один, погибших не счесть
@@ -5992,7 +5930,7 @@ Pre-припев:
 Нет пощады, нет пощады, свет погас`
                 },
                 {
-                    id: 81,
+                    id: 80,
                     artist: "STARSET",
                     title: "STARSET - Antigravity",
                     status: "taken",
@@ -6079,7 +6017,7 @@ Pre-припев:
             name: "Мелисса",
             songs: [
                 {
-                    id: 82,
+                    id: 81,
                     artist: "KOKIA",
                     title: "~~KOKIA - Fukurou~~",
                     status: "in_progress",
@@ -6113,7 +6051,7 @@ Pre-припев:
 Что-то странное в лесу началось.`
                 },
                 {
-                    id: 83,
+                    id: 82,
                     artist: "HEARTSTEEL",
                     title: "Паранойя – Хартстил",
                     status: "free",
@@ -6212,7 +6150,7 @@ Pre-припев:
 (Все вокализы и отдельные выкрики тоже пишем  =) )`
                 },
                 {
-                    id: 84,
+                    id: 83,
                     artist: "KOKIA",
                     title: "Kokia - Kujira",
                     status: "in_progress",
@@ -6263,7 +6201,7 @@ Pre-припев:
             name: "Граф(старые переводы команды)",
             songs: [
                 {
-                    id: 85,
+                    id: 84,
                     artist: "Miyawaki Shion",
                     title: "Gekkou — Miyawaki Shion",
                     status: "done",
@@ -6317,7 +6255,7 @@ Pre-припев:
 \`\`\``
                 },
                 {
-                    id: 86,
+                    id: 85,
                     artist: "YUI",
                     title: "«Again» — YUI",
                     status: "done",
@@ -6361,7 +6299,7 @@ Pre-припев:
 \`\`\``
                 },
                 {
-                    id: 87,
+                    id: 86,
                     artist: "La La Land",
                     title: "La La Land OST — «City of Star",
                     status: "done",
@@ -6407,7 +6345,7 @@ Pre-припев:
             name: "Кенни",
             songs: [
                 {
-                    id: 88,
+                    id: 87,
                     artist: "Kanaria",
                     title: "【Kanaria】ネバーフィクション【星街すいせい】",
                     status: "free",
