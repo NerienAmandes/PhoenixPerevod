@@ -92,6 +92,13 @@ function renderTranslators(filteredTranslators) {
     translatorsList.innerHTML = '';
 
     let hasAnySongs = false;
+    let totalSongs = 0;
+
+    filteredTranslators.forEach(t => totalSongs += t.songs.length);
+
+    if (totalSongs > 0) {
+        translatorsList.innerHTML += `<p style="text-align: center; margin-bottom: 1rem; color: #8b7355;">Всего переводов: ${totalSongs}</p>`;
+    }
 
     filteredTranslators.forEach(translator => {
         if (translator.songs.length === 0) return;
@@ -110,7 +117,7 @@ function renderTranslators(filteredTranslators) {
         `).join('');
 
         section.innerHTML = `
-            <h2 class="translator-title">${translator.name}</h2>
+            <h2 class="translator-title">${translator.name} (${translator.songs.length})</h2>
             <div class="translator-songs">
                 ${songCards}
             </div>
