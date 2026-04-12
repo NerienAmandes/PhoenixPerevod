@@ -63,7 +63,7 @@ const translatorsData = {
         },
         {
             id: "мизу",
-            name: "Мизу",
+            name: "Мизуми",
             songs: [
                 {
                     id: 2,
@@ -512,7 +512,151 @@ Virtual to live
 1 Та, что, вроде как, может петь. Анонимная М.
 -Чтож тогда, всего доброго.
 1 С вами была, Хатсуне.. А? То есть анонимная М.`
-                }
+                },
+                {
+  id: 7,
+                    artist: "MafuMafu",
+                    title: "RPG",
+                    status: "in_progress",
+                    url:"https://www.youtube.com/watch?v=E286KqzpkKw&list=RDE286KqzpkKw&start_radio=1",
+                    translation: `RPG
+Все, Ура, Сора, Сака, Мафу
+(Тут набор букв РПГ, не знаю будем ли мы это записывать)
+
+Ура: Я мечтал всегда великим героем стать (он героем стать)
+Безнадежно, но не хочу прекращать. Конец истории
+
+Сора: наконец-то вчетвером мы собрались (мы здесь вчетвером)
+И теперь, что-нибудь, где-нибудь, как-ниубдь
+Откуда хотим и куда захотим творим…
+…И обязанности на других переложу (Вперед или Сыр (типо как позирование на фото))
+
+Сака: В квесте смог я аконит заполучить! (Это аконит!)
+С таким трудом нашли его, но трава расти не хочет!
+
+Мафу: Бесполезны, слабаки вокруг меня (Бесполезны мы)
+Чья же вина? Его здесь вина?
+/Пока виновного\ найдем стемнеет!
+
+Ура: Прием особый чтобы в битве всего за один ход я смог победить? (Нет!)
+
+Сака: Из подземелья глубин мне поможет спастись предмет-проводник? (Нет!)
+
+Сора: К игре руководство что выбросил в мусор уже я давным-давно? (Че?!)
+
+Мафу: завис окончательно, двое из нас мертвы и сохранения последнего не-е-е-е-ет
+
+Сора: Из-за сайдскроллеров качаем ловкость вновь
+Нет хиллера у нас, 4 лузера
+
+Сака: Баклажаны и томаты встроились в ряд
+Полезного перса выбрать не смог!
+
+Сора: Вы уверены, что это не баг?!
+
+Все: Не выйдет! Нет уж! Нет уж! Я все равно прорвусь! 
+Из первого городка не сдвинулись совсем! (Да! Да!)
+Единицу на четыре умножим выйдет ноль!
+Пролетел куда-то целый год!
+
+Ура: Давайте передохнёёём!
+
+Все: В гаче бы получили всего лишь две звезды
+SSR не достигнем никогда! (Эс Эс Ара или Эс Эс Ар мы) (Да! Да!)
+Из нас каждый хочет быть самим собой
+И допоздна играть с друзьями в РПГ! (Эр Пэ Гэ)
+
+
+. . . проигрыш. . .
+
+Мафу: ну что ребят, работаем в команде? 
+
+Ура + Сака: Так точно! (или Принято!)
+
+Сора: Эй-эй, из-за кого команда так отстаёт? 
+
+Ура: Ну вообще-то это ты слишком быстро продвигаешься.
+
+Сора: Я просто расчищаю дорогу, чтобы вам всем было легче играть.
+
+Ура: Ты же сейчас просто опрадываешься, да?
+Нас это наооборот напрягает. Да, Саката? (сюда ник того кто будет за партию Сака)
+
+Сака: АААА МафуМафу ХОЧЕТ МЕНЯ УБИТЬ!!!
+
+Мафу: ХАхахаха Сдохните все! (Или Помрите все!)
+
+Сора: А?! Меня тоже? МафуМафу  я тебя не прощу!
+
+(Сака: Кто-нибудь спасите меня!!!)
+
+Ура: Блин! И куда делась вся командная работа!? РЕБЯЯТАААА!
+
+Мафу: Шесть терабайт в нигде
+С резервной копией
+Бегущий гриб смотри, его легко поймать!
+
+Ура: В два ночи мы начнем плюс шесть часов игры
+И кажется не видно конца
+
+Мафу: Я спать хочу…
+
+Все: Не выйдет! Нет уж! Нет уж! Победитель говорит! 
+Против друг друга цели будем достигать! (Да! Да!)
+Отступленье только к пораженью приведет!
+И теперь поставлю жизнь свою на кон! 
+
+Сака: Я этого не допущу!!!
+
+В самом конце забыли мы сохранить игру
+Не напоминайте, просим, как ничтожны мы (Да! Да!)
+Вечно удается неприятности найти!
+Вернулись в самое начало РПГ! (Эр, Пэ, Гэ)
+
+. . .проигрыш. . .
+(тут нет конкретного деления в оригинале можно сделать вот так)
+- Меч Легендарный зло любое сможет победить?
+(Нет. Нет. Нет-нет-нет-нет!)
+- Волшебный щит способен деву от беды спасти?
+(Нет. Нет. Нет-нет-нет-нет!)
+- В небесах великих есть летающий фрегат?
+(Нет. Нет. Нет-нет-нет-нет!)
+- Желание в путь-дорогу чтобы целый мир спасти?
+(Нет. Нет. Нет-нет-нет-нет!)
+
+Сака: Покройся тьмой! Кугэльшрайбер! (ручка с немецкого)
+
+Сора: Запекись! (или Зажарься!) Шварцвальдброт! (вид черного хлеба в Германии)
+
+Мафу: Промерзни насквозь! Рэйзоко! (можно оставить так или сделать Холодильник! (с японского рейзоко дословно холодильник))
+
+Ура: ДА! Это моя мощнейщая финальная форма! УДАР ВЕЧНОСТИ! 
+
+Сора: Что?
+Сака Что? 
+Мафу: ЧТОООО?
+
+Ура: ХВАТИТ УЖЕ !!! (да ну вас|да ну вас нафиг)
+
+Мафу: на границе мира, с обратной стороны
+Будет свержен нами Демонов Король
+На экране вдруг всплывет «Конец Игры»
+Какое завтра ожидает на-а-а-а-ас!
+
+Все: Не выйдет! Нет уж! Нет уж! Я все равно прорвусь! 
+Из первого городка не сдвинулись совсем! (Да! Да!)
+Единицу на четыре умножим выйдет ноль!
+Не поверишь, уже сотня лет прошла!
+
+Ура + Сака: УООООО!!!
+
+Я решил, чуть-чуть подумав «не так уж плохо все!»
+Игры помогают нам время скоротать!
+Всю жизнь теперь я путешествовать хочу 
+И допоздна играть с друзьями в РПГ!
+`
+                },
+                
             ]
         },
         {
@@ -520,10 +664,10 @@ Virtual to live
             name: "Карина",
             songs: [
                 {
-                    id: 7,
+                    id: 8,
                     artist: "Kenshi Yonezu",
                     title: "『 IRIS OUT 』- Kenshi Yonezu",
-                    status: "free",
+                    status: "in_progress",
                     translation: `[Интро]
 
 (ах, ах, ах, ах, ах, ах)
@@ -609,7 +753,7 @@ Virtual to live
 -`
                 },
                 {
-                    id: 8,
+                    id: 9,
                     artist: "Kairiki Bear feat. Hatsune Miku",
                     title: "Баг",
                     status: "free",
@@ -677,7 +821,7 @@ Virtual to live
 Меня тьма поглотила и ненависть моя, всё ненавижу я ия-ия-ия-ия-ия-ия-ия-ияяяяя!`
                 },
                 {
-                    id: 9,
+                    id: 10,
                     artist: "YurryCanon feat. GUMI",
                     title: "Suicide Parade",
                     status: "free",
@@ -749,7 +893,7 @@ Virtual to live
 [1] Ах, так начало кошмара породив!`
                 },
                 {
-                    id: 10,
+                    id: 11,
                     artist: "ザムザ / 25時、ナイトコードで。 × KAITO",
                     title: "Замза",
                     status: "in_progress",
@@ -848,7 +992,7 @@ Virtual to live
 +(вокализы в конце/начале)`
                 },
                 {
-                    id: 11,
+                    id: 12,
                     artist: "TheHottestDog",
                     title: "Five Nights at Fredy`s",
                     status: "free",
@@ -950,7 +1094,7 @@ Virtual to live
 Гриша - нет, нет, нет!!!!`
                 },
                 {
-                    id: 12,
+                    id: 13,
                     artist: "Kanaria",
                     title: "EYE",
                     status: "free",
@@ -993,7 +1137,7 @@ Virtual to live
 И кто же будет ждать? а-ах~`
                 },
                 {
-                    id: 13,
+                    id: 14,
                     artist: "AZARI",
                     title: "DNA",
                     status: "in_progress",
@@ -1039,7 +1183,7 @@ Virtual to live
 И то, что я еще жива, нам скажет только ДНК`
                 },
                 {
-                    id: 14,
+                    id: 15,
                     artist: "¿?",
                     title: "Lucifer",
                     status: "free",
@@ -1094,7 +1238,7 @@ Virtual to live
 Но как же забавно за всем наблюдать.`
                 },
                 {
-                    id: 15,
+                    id: 16,
                     artist: "Saja Boys",
                     title: "『 Your Idol 』 -  KPOP Demon Hunters",
                     status: "done",
@@ -1177,7 +1321,7 @@ Uh, yeah, словно лихорадка, я заставлю верить
 Так встань на колени, ведь я твой айдол.`
                 },
                 {
-                    id: 16,
+                    id: 17,
                     artist: "香椎モイミ",
                     title: "All save challenge(short)",
                     status: "free",
@@ -1219,7 +1363,7 @@ Uh, yeah, словно лихорадка, я заставлю верить
 Всегда!`
                 },
                 {
-                    id: 17,
+                    id: 18,
                     artist: "milet",
                     title: "Milet – «Seventh heaven»",
                     status: "done",
@@ -1321,7 +1465,7 @@ RGN, конца не видно
 Если любишь ты!`
                 },
                 {
-                    id: 18,
+                    id: 19,
                     artist: "Narumiya",
                     title: "lEAD CONTROL",
                     status: "free",
@@ -1370,7 +1514,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 Тогда покрутись мой милый пес и лапку протяни!»`
                 },
                 {
-                    id: 19,
+                    id: 20,
                     artist: "HUNTR/X",
                     title: "Takedown",
                     status: "done",
@@ -1459,7 +1603,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 Да-да-да да-да-да-да (Наблюдай за мной~)`
                 },
                 {
-                    id: 20,
+                    id: 21,
                     artist: "Jorge Rivera-Herrans",
                     title: "СЦИЛЛА",
                     status: "free",
@@ -1545,7 +1689,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 одной я и ты а~`
                 },
                 {
-                    id: 21,
+                    id: 22,
                     artist: "Saja Boys",
                     title: "『Soda Pop』 - Soja Boys - KPOP Demon Hunters -",
                     status: "in_progress",
@@ -1819,7 +1963,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 =(`
                 },
                 {
-                    id: 22,
+                    id: 23,
                     artist: "Hazbin Hotel",
                     title: "Clean It Up",
                     status: "done",
@@ -1873,7 +2017,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 Прекрасен этим наш отель....да? Еее...`
                 },
                 {
-                    id: 23,
+                    id: 24,
                     artist: "Dawko, APAngryPiggy",
                     title: "Dance Forever - Fnaf 2",
                     status: "free",
@@ -1948,7 +2092,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 Мы нашли настоящего)`
                 },
                 {
-                    id: 24,
+                    id: 25,
                     artist: "Rambu",
                     title: "\" Heart of A River \" from MUSICAL PIPERS",
                     status: "free",
@@ -2116,7 +2260,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
             name: "Rey",
             songs: [
                 {
-                    id: 25,
+                    id: 26,
                     artist: "Kenshi Yonezu, Hikaru Utada",
                     title: "[ Kenshi Yonezu, Hikaru Utada ] - JANE DOE",
                     status: "free",
@@ -2170,7 +2314,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 В жизнь воплотить все, чем грезила я`
                 },
                 {
-                    id: 26,
+                    id: 27,
                     artist: "The Amazing Digital Circus",
                     title: "【THE AMAZING DIGITAL CIRCUS FAN MUSIC VIDEO】 - Jax Toy",
                     status: "in_progress",
@@ -2263,7 +2407,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 (Куклы, Джекса куклы)`
                 },
                 {
-                    id: 27,
+                    id: 28,
                     artist: "After the Rain",
                     title: "[ After the Rain ]",
                     status: "done",
@@ -2335,7 +2479,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
     - `
                 },
                 {
-                    id: 28,
+                    id: 29,
                     artist: "Beach Bunny",
                     title: "prom queen",
                     status: "free",
@@ -2369,7 +2513,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 Хочу быть в норме я.`
                 },
                 {
-                    id: 29,
+                    id: 30,
                     artist: "Marko Bošnjak",
                     title: "poison cake",
                     status: "free",
@@ -2439,7 +2583,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 Сладкий яд, сладкий яд, сладкий яд`
                 },
                 {
-                    id: 30,
+                    id: 31,
                     artist: "Billie Eilish",
                     title: "bellyache",
                     status: "free",
@@ -2508,7 +2652,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 Но снова закрутил живот`
                 },
                 {
-                    id: 31,
+                    id: 32,
                     artist: "Melanie Martinez",
                     title: "pity party",
                     status: "free",
@@ -2562,7 +2706,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 Пока свечами не спалю весь свой дом`
                 },
                 {
-                    id: 32,
+                    id: 33,
                     artist: "Evanescence",
                     title: "bring me to life",
                     status: "done",
@@ -2686,7 +2830,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 (1)Верни мне жизнь`
                 },
                 {
-                    id: 33,
+                    id: 34,
                     artist: "Chris Grey",
                     title: "enemies",
                     status: "free",
@@ -2750,7 +2894,7 @@ Walk into a trap, милое чадо, вкусил ты дурман.
 Enemies`
                 },
                 {
-                    id: 34,
+                    id: 35,
                     artist: "Melanie Martinez",
                     title: "dollhouse",
                     status: "free",
@@ -2846,7 +2990,7 @@ Enemies`
 Dollhouse`
                 },
                 {
-                    id: 35,
+                    id: 36,
                     artist: "Billie Eilish",
                     title: "[♫ Billie Eilish – bury a friend]",
                     status: "free",
@@ -2924,7 +3068,7 @@ Dollhouse`
 Billie Eilish — bury a friend`
                 },
                 {
-                    id: 36,
+                    id: 37,
                     artist: "Billie Eilish",
                     title: "You should see me in a crown",
                     status: "free",
@@ -2992,7 +3136,7 @@ Billie Eilish — bury a friend`
 You should see me in a crown`
                 },
                 {
-                    id: 37,
+                    id: 38,
                     artist: "Måneskin",
                     title: "I wanna be your slave",
                     status: "free",
@@ -3089,7 +3233,7 @@ You should see me in a crown`
 I wanna be your slave`
                 },
                 {
-                    id: 38,
+                    id: 39,
                     artist: "girl in red",
                     title: "We fell in october",
                     status: "free",
@@ -3131,7 +3275,7 @@ I wanna be your slave`
 We fell in October`
                 },
                 {
-                    id: 39,
+                    id: 40,
                     artist: "Halsey",
                     title: "Control",
                     status: "in_progress",
@@ -3197,7 +3341,7 @@ We fell in October`
 Подчини же их`
                 },
                 {
-                    id: 40,
+                    id: 41,
                     artist: "HOYO-MiX",
                     title: "[ HSR - True ]",
                     status: "free",
@@ -3228,7 +3372,7 @@ We fell in October`
 И история начинается.`
                 },
                 {
-                    id: 41,
+                    id: 42,
                     artist: "Kairiki Bear feat. flower",
                     title: "Venom",
                     status: "free",
@@ -3317,7 +3461,7 @@ We fell in October`
 это к Веному, все это к Веному, все эток Веному!`
                 },
                 {
-                    id: 42,
+                    id: 43,
                     artist: "Imogen Heap",
                     title: "Imogen Heap - Headlock",
                     status: "done",
@@ -3402,7 +3546,7 @@ We fell in October`
 (Как ты проиграл?)`
                 },
                 {
-                    id: 43,
+                    id: 44,
                     artist: "Mamika Suzuki",
                     title: "mamika suzuki - chuwa",
                     status: "done",
@@ -3430,7 +3574,7 @@ We fell in October`
 Так смотри же на меня, как на песочные часы смотрел`
                 },
                 {
-                    id: 44,
+                    id: 45,
                     artist: "Stromae, Pomme",
                     title: "Stromae, Pomme – \"Ma Meilleure Ennemie\"",
                     status: "free",
@@ -3480,7 +3624,7 @@ We fell in October`
 Люблю я тебя, ненавижу я тебя)`
                 },
                 {
-                    id: 45,
+                    id: 46,
                     artist: "Chris Isaak",
                     title: "Wicked game",
                     status: "in_progress",
@@ -3534,7 +3678,7 @@ We fell in October`
 Никакой нет любви.`
                 },
                 {
-                    id: 46,
+                    id: 47,
                     artist: "Evanescence",
                     title: "Evanescence - My Immortal",
                     status: "free",
@@ -3580,7 +3724,7 @@ We fell in October`
 Но я твоя.`
                 },
                 {
-                    id: 47,
+                    id: 48,
                     artist: "HUNTR/X",
                     title: "Kpop Demon Hunters - Free",
                     status: "in_progress",
@@ -3655,7 +3799,7 @@ We fell in October`
 То, что было, стремительно тает`
                 },
                 {
-                    id: 48,
+                    id: 49,
                     artist: "HazbinHotel",
                     title: "Nobody Like You",
                     status: "free",
@@ -3734,7 +3878,7 @@ We fell in October`
 Все тебя полюбят, ведь ты такое чудо!`
                 },
                 {
-                    id: 49,
+                    id: 50,
                     artist: "Vinz Ceazar",
                     title: "King of Hell(male)",
                     status: "free",
@@ -3759,7 +3903,7 @@ We fell in October`
 Ведь я полубог, ну а ты? Просто бремя!`
                 },
                 {
-                    id: 50,
+                    id: 51,
                     artist: "Vinz Ceazar",
                     title: "King of Hell(female)",
                     status: "taken",
@@ -3783,7 +3927,7 @@ We fell in October`
 Я полубогиня, а ты? Просто бремя!`
                 },
                 {
-                    id: 51,
+                    id: 52,
                     artist: "Hazbin Hotel",
                     title: "Hear my Hope",
                     status: "done",
@@ -3866,7 +4010,7 @@ We fell in October`
 Блять, пора отступить!`
                 },
                 {
-                    id: 52,
+                    id: 53,
                     artist: "Hazbin Hotel",
                     title: "Vox dei",
                     status: "done",
@@ -3889,7 +4033,7 @@ We fell in October`
 Со своим королевством!`
                 },
                 {
-                    id: 53,
+                    id: 54,
                     artist: "Hazbin Hotel",
                     title: "Don't you forget",
                     status: "done",
@@ -3983,7 +4127,7 @@ We fell in October`
 Ладно!`
                 },
                 {
-                    id: 54,
+                    id: 55,
                     artist: "Hazbin Hotel",
                     title: "Trust Us",
                     status: "free",
@@ -4208,7 +4352,7 @@ We fell in October`
 А, ну ок.`
                 },
                 {
-                    id: 55,
+                    id: 56,
                     artist: "Kyle Allen Music",
                     title: "Kill Me Once - Fnaf",
                     status: "free",
@@ -4280,7 +4424,7 @@ We fell in October`
 Круг не разомкнуть`
                 },
                 {
-                    id: 56,
+                    id: 57,
                     artist: "Jakeneutron",
                     title: "We Must We Do - REPO",
                     status: "free",
@@ -4420,7 +4564,7 @@ We fell in October`
 Зачем? Не пойму`
                 },
                 {
-                    id: 57,
+                    id: 58,
                     artist: "Elton John",
                     title: "Can You Feel The Love Tonight - Elton John",
                     status: "in_progress",
@@ -4465,7 +4609,7 @@ We fell in October`
 Лучшее познать.`
                 },
                 {
-                    id: 58,
+                    id: 59,
                     artist: "Tommee Profitt, Sam Tinnesz, brooke",
                     title: "Forbidden fruit",
                     status: "free",
@@ -4501,7 +4645,7 @@ We fell in October`
 Желанье, ты мой запретный плод, запретный фрукт`
                 },
                 {
-                    id: 59,
+                    id: 60,
                     artist: "Ado",
                     title: "Ado - Magic",
                     status: "taken",
@@ -4610,7 +4754,7 @@ We fell in October`
 Мое сердце - лаби-лаби-лабиринт.`
                 },
                 {
-                    id: 60,
+                    id: 61,
                     artist: "Expedition33",
                     title: "Until Next Life",
                     status: "done",
@@ -4637,7 +4781,7 @@ We fell in October`
 Чье время в такт не течет`
                 },
                 {
-                    id: 61,
+                    id: 62,
                     artist: "Of Monsters and Men",
                     title: "Of Monsters and Men - Little Talks",
                     status: "free",
@@ -4719,7 +4863,7 @@ We fell in October`
 Судно довезет`
                 },
                 {
-                    id: 62,
+                    id: 63,
                     artist: "Poor Mans Poison",
                     title: "Hell's Comin' With Me - Poor Mans Poison",
                     status: "free",
@@ -4780,10 +4924,11 @@ We fell in October`
 Сказал: ад будет со мной`
                 },
                 {
-                    id: 63,
+                    id: 64,
                     artist: "HazbinHotel",
                     title: "Like Gravity",
                     status: "done",
+                    url:"https://www.youtube.com/watch?v=5eZonu8XsEs&list=RD5eZonu8XsEs&start_radio=1",
                     translation: `[Куплет]
 
 Ей невдомёк 
@@ -4838,10 +4983,11 @@ We fell in October`
 Потопит, устраивай же трагедию, трагедию!`
                 },
                 {
-                    id: 64,
+                    id: 65,
                     artist: "Pgantom Shiita",
                     title: "Otomodachi",
                     status: "done",
+                    url:"https://www.youtube.com/watch?v=o1XInVhiVow&list=RDo1XInVhiVow&start_radio=1",
                     translation: `(Все)
 Так кто же мне солгал, быть может ты?
 Как же так ты предать меня посмела! 
@@ -4949,7 +5095,7 @@ We fell in October`
             name: "Necoria",
             songs: [
                 {
-                    id: 65,
+                    id: 66,
                     artist: "BABYMONSTER",
                     title: "~~BABYMONSTER - ‘WE GO UP’ M/V~~",
                     status: "done",
@@ -5067,7 +5213,7 @@ We fell in October`
 (ALL) Летим вверх!`
                 },
                 {
-                    id: 66,
+                    id: 67,
                     artist: "XLOV",
                     title: "~~1&only~~",
                     status: "in_progress",
@@ -5207,7 +5353,7 @@ Yeah yeah Нужна мне
 И всё это неважно, пока огонь наш будет гореть.`
                 },
                 {
-                    id: 67,
+                    id: 68,
                     artist: "BIBI",
                     title: "Scott and Zelda",
                     status: "in_progress",
@@ -5257,7 +5403,7 @@ Yeah yeah Нужна мне
 Или же раскроешь? Иль забудешь ты меня?...`
                 },
                 {
-                    id: 68,
+                    id: 69,
                     artist: "SOYEON, WINTER, LIZ",
                     title: "NOBODY",
                     status: "in_progress",
@@ -5336,7 +5482,7 @@ Yeah yeah Нужна мне
             name: "Полина Стеценко",
             songs: [
                 {
-                    id: 69,
+                    id: 70,
                     artist: "Encanto Cast",
                     title: "~~мирабель~~",
                     status: "in_progress",
@@ -5407,7 +5553,7 @@ Yeah yeah Нужна мне
 Лучше было о Бруно!`
                 },
                 {
-                    id: 70,
+                    id: 71,
                     artist: "Dear Evan Hansen",
                     title: "~~Requiem~~",
                     status: "in_progress",
@@ -5449,7 +5595,7 @@ Yeah yeah Нужна мне
 
                 },
                 {
-                    id: 71,
+                    id: 72,
                     artist: "Disney Descendants",
                     title: "Flight of Our Lives",
                     status: "in_progress",
@@ -5529,7 +5675,7 @@ Yeah yeah Нужна мне
 На берегу мы вдоем!`
                 },
                 {
-                    id: 72,
+                    id: 73,
                     artist: "Laura Thorn",
                     title: "~~la poupée monte le son~~",
                     status: "in_progress",
@@ -5576,7 +5722,7 @@ Yeah yeah Нужна мне
 Громче, все громче, все громче`
                 },
                 {
-                    id: 73,
+                    id: 74,
                     artist: "Ben Platt",
                     title: "~~Wawing through a window ~~",
                     status: "done",
@@ -5646,7 +5792,7 @@ Yeah yeah Нужна мне
             name: "Сэнну",
             songs: [
                 {
-                    id: 74,
+                    id: 75,
                     artist: "HOYO-MiX",
                     title: "『 Nod-Krai』- Genshin",
                     status: "free",
@@ -5666,7 +5812,7 @@ Yeah yeah Нужна мне
 Под луной станет мир чист и ясен вновь.`
                 },
                 {
-                    id: 75,
+                    id: 76,
                     artist: "Fall Out Boy",
                     title: "『 Fall Out Boy 』-  The Phoenix",
                     status: "free",
@@ -5739,7 +5885,7 @@ Yeah yeah Нужна мне
 к войне готовься!`
                 },
                 {
-                    id: 76,
+                    id: 77,
                     artist: "Givurita",
                     title: "『 Vell 』- Givurita",
                     status: "free",
@@ -5796,7 +5942,7 @@ Yeah yeah Нужна мне
   в данном контексте—спокойствие, безопасность`
                 },
                 {
-                    id: 77,
+                    id: 78,
                     artist: "Mika Nakashima",
                     title: "『 KISS OF DEATH 』- Mika Nakashima -",
                     status: "free",
@@ -5834,7 +5980,7 @@ Yeah yeah Нужна мне
             name: "Влад",
             songs: [
                 {
-                    id: 78,
+                    id: 79,
                     artist: "Hazbin Hotel",
                     title: "~~Losing Streak ~~",
                     status: "done",
@@ -5867,7 +6013,7 @@ Oh, no
 Удачи вам там, ребята.`
                 },
                 {
-                    id: 79,
+                    id: 80,
                     artist: "Hazbin Hotel",
                     title: "Brighter",
                     status: "free",
@@ -5931,7 +6077,7 @@ Oh, no
 Ярче!`
                 },
                 {
-                    id: 80,
+                    id: 81,
                     artist: "Radiohead",
                     title: "Creep",
                     status: "free",
@@ -5988,7 +6134,7 @@ Oh, no
 Мне тут не место`
                 },
                 {
-                    id: 81,
+                    id: 82,
                     artist: "Hazbin Hotel",
                     title: "Love in a Bottle",
                     status: "done",
@@ -6046,7 +6192,7 @@ Oh, no
 Ещё одну!`
                 },
                 {
-                    id: 82,
+                    id: 83,
                     artist: "Emigrate",
                     title: "Rainbow - Emigrate",
                     status: "taken",
@@ -6141,7 +6287,7 @@ Oh, no
 -`
                 },
                 {
-                    id: 83,
+                    id: 84,
                     artist: "FNAF",
                     title: "FNAF SL CIRCUS BABY SONG Don't Come Crying",
                     status: "taken",
@@ -6214,7 +6360,7 @@ Pre-припев:
 Нет пощады, нет пощады, свет погас`
                 },
                 {
-                    id: 84,
+                    id: 85,
                     artist: "STARSET",
                     title: "STARSET - Antigravity",
                     status: "taken",
@@ -6295,7 +6441,7 @@ Pre-припев:
 [ ЖОСКИ ИНСТРУМЕНТАЛЬНЫЙ БРИДГЕ ]`
                 },
                 {
-                    id: 85,
+                    id: 86,
                     artist: "The Vanished People",
                     title: "It's goind done",
                     status: "in_progress",
@@ -6349,7 +6495,7 @@ Pre-припев:
 Всё решено
 Готовься, ведь всё явно решено!`,
                 }, {
-                    id: 86,
+                    id: 87,
                     artist: "SIM",
                     title: "The Rumbling",
                     status: "in_progress",
@@ -6410,6 +6556,89 @@ Pre-припев:
 Рокот, Рокот, пронзает!
 Рокот, Рокот!
 `
+                },
+                {
+ id: 88,
+                    artist: "Milk in the Microwave & AXIE",
+                    title: "The Perfect Christma",
+                    status: "taken",
+                    url:" https://www.youtube.com/watch?v=9FVkZBK8kVw",
+                    translation:`Ждала этого момента  
+Дни и ночи напролёт  
+И теперь пора у двери  
+Радостно душа поёт  
+Но нам дел кучу надо сделать  
+Все запасы перебрать  
+Так собирайте украшенья  
+Будет веселья ураган!
+
+Красный, жёлтый, розовый  
+Рыжий, лаванда и аквамарин  
+Вместе мы сила, внутри красота  
+Скорей бы нам всё довести до ума  
+Ты готов? О-кей! Вперёд!
+
+Лёгких усилий нам стоит идеал  
+Время начать, подойдите все сюда  
+В гонке мы, и нам улыбки важны  
+Чудеса увидят скоро все здесь!  
+Леденцы, сласти и горы трюфелей  
+Ярких витрин ряд и кучи радостей  
+Тут гулкий звон и звонкий гул пений  
+Настрой, несущий миг редких свершений  
+А он идёт, заныривай с головой  
+В Рождества настрой, увидишь его ты!
+
+Эй-а, Руди, как делишки?  
+Подарки уж не мой конёк  
+Ладушки, а как на кухне?  
+Красиво, но немного не тот вкус  
+Ну, Уголёк уж точно всё удалось!  
+…ты дала работу камню?  
+Поймите всё верно  
+Я рада вам всемерно  
+Передохните же  
+И я всё исправлю быстро, правда…  
+…о-кей! Ты… дай нам знать, если что нужно.
+
+О чём я думала?  
+Я не справлюсь с этим, как же так?  
+Все дела не по плечу  
+Для меня одной  
+Никто не поможет сделать так  
+Как надо мне, и заново  
+Делать всю возню  
+Сделаю всё продуктивно  
+Канун мой будет безупречен  
+И мне не впервой, всё будет сейчас  
+Оценят они мой лучший час  
+И будут подарки, и кухня не спит  
+Украшу всё тут и закачу пир  
+Поставлю на ель сверху звезду мечты  
+О нет, нет, НЕТ!!!
+
+В глазах всё плывёт, но ведь я собой горда  
+Как в лучшей рекламе, в круг собралась толпа  
+Но нет и намёка на счастье в их лицах  
+И смотрят… их не узнаю…  
+Сменилось что-то, голова так болит  
+В ушах звенит и огней засветы  
+Стесняют воздух — верно ль всё идёт?  
+И нет песен… Я слышу крики
+
+Пошёл скол и ихор течёт рекой  
+Но бельмо не испортит мой настрой!  
+Я жду гостей, улыбнусь до ушей  
+Рассеку жаркое, всё было не зря  
+Стол пуст, всё ясно, они хотят играть  
+Прятки, пятнашки, что в голову взбредёт  
+Сделаю я всё, чтобы каждый был рад  
+Я отыщу, и где бы ни был ты  
+Я верну тебе дух Рождественский  
+Найду и напомню, что час пробил  
+Лучший и ярчайший бал наступил  
+Три-два-раз, я отыщу, я гряду!`
+
                 }
 
             ]
@@ -6420,7 +6649,7 @@ Pre-припев:
             name: "Мелисса",
             songs: [
                 {
-                    id: 87,
+                    id: 89,
                     artist: "KOKIA",
                     title: "~~KOKIA - Fukurou~~",
                     status: "in_progress",
@@ -6454,7 +6683,7 @@ Pre-припев:
 Что-то странное в лесу началось.`
                 },
                 {
-                    id: 88,
+                    id: 90,
                     artist: "HEARTSTEEL",
                     title: "Паранойя – Хартстил",
                     status: "free",
@@ -6553,10 +6782,10 @@ Pre-припев:
 (Все вокализы и отдельные выкрики тоже пишем  =) )`
                 },
                 {
-                    id: 89,
+                    id: 91,
                     artist: "KOKIA",
                     title: "Kokia - Kujira",
-                    status: "in_progress",
+                    status: "done",
                     translation: `Большой океан для меня с рождения дом.
 И каждый, кто встретит, тот зовёт меня китом.
 Только для мамы я сокровища ценней,
@@ -6597,6 +6826,69 @@ Pre-припев:
 
 Лишь для неё я всех любимей и родней.`
                 },
+                {
+ id: 92,
+                    artist: ": B’s Revenge",
+                    title: "Their Idol’s Children Season 3» 1st episode insert song",
+                    status: "in_progress",
+                    url:"https://www.youtube.com/watch?v=kwh3liMqcN4",
+                    translation: `Ruby, Kana Arima, MeMcho, All.
+Когда-нибудь любовь окрасит мир,
+Купол вмиг, заполонит лишь собой, а-а-а-а
+
+Рожденные сиять – это мы, как звездочки на небе.
+Дети Звездные – зовут нас.
+Кумиром стать я твоим мечтаю самым главным
+Ты же сам того пожелал.
+
+Свет прожекторов сверкает. 
+И нам пора уже начинать.
+Покажи свою любовь мне,
+Подари же счастья миг.
+
+Контратаки драма льется ото всюду.
+Успеха добьюсь, посмотри, сделаю все, что смогу я.
+Шанс не упущу, удачу за хвост держу, никак не уйти ей от меня, знай -  это мой путь, его не отнять!
+Вот как сильно хочется мне, быть милым айдолом для тебя… Навсегда.
+
+Когда-нибудь окрашу я твой мир,
+Светом ламп, что блестят, заполнив купол сияньем любви. 
+Даже если будешь злиться стоя у стен, притворяясь моим парнем,
+Заплачь, а-а-а.
+Больше нужно мне! (Рождена сверкать, я обычно ярче всех.)
+Большего хочу! (Я лучшей стану, ждет меня успех.)
+Ты не понял, да? Вместе мы выйдем, что же скажешь нам?
+Это не мечта уж, ну нет, ведь не мечта уж, а месть.
+Помни, не мечта ведь, это месть за тот самый день.
+
+Звездные дети – так нас зовут. Переродились – ярок наш путь.
+Постараюсь я для тебя,
+Ответ дать хочется очень, на чувства те, на всю любовь, что ты мне дарил всегда.
+
+Возглавляю одна я,
+Наш образ, стиль, и кружится голова.
+Вновь мелькает пред глазами, для нас готовый
+Пьедестал.
+
+Света огни замерцали, опять возвращая меня в этот проклятый день.
+Чья тут в итоге вина? А я расскажу, ведь вина же твоя.
+Виновата в этом ты, виновата в этом ты.
+Виновата в этом ты, это все лишь твоя вина.
+
+Вот как сильно хочется мне, быть милым айдолом для тебя… Навсегда.
+
+Когда-нибудь окрашу я твой мир,
+Светом ламп, что блестят, заполнив купол сияньем любви. 
+Даже если будешь злиться стоя у стен, притворяясь моим парнем,
+Заплачь, а-а-а.
+Больше нужно мне! (Рождена сверкать, я обычно ярче всех.)
+Большего хочу! (Я лучшей стану, ждет меня успех.)
+Ты не понял, да? Вместе мы выйдем, что же скажешь нам?
+Это не мечта уж, ну нет, ведь не мечта уж, а месть.
+Помни, не мечта ведь, это месть за тот самый день.
+
+`
+                }
 
             ]
         },
@@ -6605,11 +6897,11 @@ Pre-припев:
             name: "Граф(старые переводы команды)",
             songs: [
                 {
-                    id: 90,
+                    id: 93,
                     artist: "Miyawaki Shion",
                     title: "Gekkou — Miyawaki Shion",
                     status: "done",
-                    translation: `- \`\`\`
+                    translation: `
 Э-эй, так ждала
 Я э--того дня.
 Надеждой теплится мечта,
@@ -6655,11 +6947,10 @@ Pre-припев:
 Из твоих прекрасных глаз
 Катится слеза,
 Света лунного
-Не видать за пеленой тума-а-на...
-\`\`\``
+Не видать за пеленой тума-а-на...`
                 },
                 {
-                    id: 91,
+                    id: 94,
                     artist: "YUI",
                     title: "«Again» — YUI",
                     status: "done",
@@ -6703,7 +6994,7 @@ Pre-припев:
 \`\`\``
                 },
                 {
-                    id: 92,
+                    id: 95,
                     artist: "La La Land",
                     title: "La La Land OST — «City of Star",
                     status: "done",
@@ -6749,7 +7040,7 @@ Pre-припев:
             name: "Кенни",
             songs: [
                 {
-                    id: 93,
+                    id: 96,
                     artist: "Kanaria",
                     title: "【Kanaria】ネバーフィクション【星街すいせい】",
                     status: "free",
