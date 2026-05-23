@@ -6781,7 +6781,7 @@ Oh, no
                     id: 85,
                     artist: "Emigrate",
                     title: "Rainbow - Emigrate",
-                    status: "taken",
+                    status: "free",
                     url: "https://youtu.be/zNmX9t2NBO8",
                     translation: `[Куплет 1]
 Я лишь хочу быть
@@ -6949,7 +6949,7 @@ Pre-припев:
                     id: 87,
                     artist: "STARSET",
                     title: "STARSET - Antigravity",
-                    status: "taken",
+                    status: "free",
                     url: "https://youtu.be/W7qIlpV-uwo",
                     translation: `[ Куплет 1 ]
 Хоть и борюсь, хоть и спешу
