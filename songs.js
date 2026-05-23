@@ -168,7 +168,7 @@ Pafu – Pafu Nya Nya`
                     id: 3,
                     artist: "HoneyWorks",
                     title: "Kawaikute gomen💙",
-                    status: "free",
+                    status: "taken",
                     url: "https://youtu.be/K4xLi8IF1FM",
                     translation: `1: Любовь к себе всегда я сполна ощущала
 А что в этом такого? Завидуешь ты мне, да?
@@ -1186,7 +1186,7 @@ SSR не достигнем никогда! (Эс Эс Ара или Эс Эс �
                     id: 15,
                     artist: "¿?",
                     title: "Lucifer",
-                    status: "free",
+                    status: "taken",
                     url: "https://youtu.be/tlHx03SVMK8",
                     translation: `Что за позор? Вот же позор!
 Ааа
@@ -1324,7 +1324,7 @@ Uh, yeah, словно лихорадка, я заставлю верить
                     id: 17,
                     artist: "香椎モイミ",
                     title: "All save challenge(short)",
-                    status: "free",
+                    status: "taken",
                     url: "https://youtu.be/ejG2_B95DzY",
                     translation: `Если буду плакать прямо как дитя,
 Чувства будет сложно мне унять
@@ -3132,7 +3132,7 @@ Enemies`
                     id: 37,
                     artist: "Melanie Martinez",
                     title: "dollhouse",
-                    status: "free",
+                    status: "taken",
                     url: "https://youtu.be/HcVv9R1ZR84",
                     translation: `Хей, ты
 Двери открой
@@ -3228,7 +3228,7 @@ Dollhouse`
                     id: 38,
                     artist: "Billie Eilish",
                     title: "[♫ Billie Eilish – bury a friend]",
-                    status: "free",
+                    status: "taken",
                     url: "https://youtu.be/HUHC9tYz8ik",
                     translation: `Билли.
 
@@ -3306,7 +3306,7 @@ Billie Eilish — bury a friend`
                     id: 39,
                     artist: "Billie Eilish",
                     title: "You should see me in a crown",
-                    status: "free",
+                    status: "in_progress",
                     translation: `[1 куплет]
 Я молчу, я всё жду
 Знак с собою ношу
@@ -3471,7 +3471,7 @@ I wanna be your slave`
                     id: 41,
                     artist: "girl in red",
                     title: "We fell in october",
-                    status: "free",
+                    status: "taken",
                     url: "https://youtu.be/iggmiF7DNoM",
                     translation: `Курим вместе на крыше мы,
 Прекрасный вид, но прекрасней ты
@@ -5381,7 +5381,7 @@ We fell in October`
                 {id: 104,
                     artist: "Azari",
                     title: "Scapegoat",
-                    status: "free",
+                    status: "taken",
                     url:"https://youtu.be/98PKQSN4sxE?si=ha9ZNMuGEZ1Ho02k",
                     translation:`С тобой мы отпущения козлы. 
 Тогда быть может ближе станем мы.
@@ -5992,6 +5992,73 @@ Da-da-ra-da-da
 Da-da-ra-da-da
 
 Da-da-ra-da-dam`
+                },
+                {
+ id: 107,
+                    artist: "Han",
+                    title: "BACK TO LIFE",
+                    status: "done",
+                    url:"https://www.youtube.com/watch?v=F0UIsSnotlA",
+                    translation:`Я всë не пойму, зачем во лжи живу, 
+(Не боюсь, не боюсь утратить всë, что есть сейчас) 
+И правильно или нет, не знаю ответ. 
+(Не помогай, не помогай, ведь я всë выдержу одна) 
+
+Встань, в битве побеждай, 
+Нет места для сожалений, выбрось ложь и к правде стремись. 
+Я подниму глаза, 
+Через всю боль я проберусь. 
+
+Я вверх тянусь, чтоб быть живой, 
+Не утянут меня вниз. 
+Каждый шрам - мой талисман, 
+Ведь я стараюсь - видишь ты. 
+Скажут "прекрати", но я не могу, 
+Мысли ночью тяжелы. 
+Мне всë равно, ведь много раз я упаду,
+Но к жизни вновь вернусь. 
+
+И под солнцем, лунным светом
+Незаметна я для всех. 
+Думаю, мир избавляет от помех. 
+У историй есть концовки, 
+Посмотри на них со мной. 
+В будущее я иду, былое брошу за спиной.
+
+О, страх спрячу я внутри, 
+Забуду, кем была раньше, вздох - и стану новой собой
+Я подниму глаза, 
+Через всю боль я проберусь. 
+
+Я вверх тянусь, чтоб быть живой, 
+Не утянут меня вниз. 
+Каждый шрам - мой талисман, 
+Ведь я стараюсь - видишь ты. 
+Скажут "прекрати", но я не могу, 
+Мысли ночью тяжелы. 
+Мне всë равно, ведь много раз я упаду,
+Но к жизни вновь вернусь. 
+
+Разум ясен, хватит бреда,
+Наконец освободилась. 
+Я стремлюсь туда, где буду лишь собой, е
+
+Хэй
+Скажут "прекрати", но я не могу, 
+Мысли ночью тяжелы. 
+Мне всë равно, ведь много раз я упаду,
+Но к жизни вновь вернусь. 
+
+Ла-ла-ла-ла-ла, ла-ла
+Ла-ла, ла-ла-ла
+Ла-ла, ла, ла-ла, ла-ла-ла, ла-ла
+Ла-ла, ла-ла-ла
+
+Скажут "прекрати", но я не могу, 
+Мысли ночью тяжелы. 
+Мне всë равно, ведь много раз я упаду,
+И к жизни я вернусь!`
+
                 }
 
             ]
@@ -6334,7 +6401,7 @@ Da-da-ra-da-dam`
                     id: 78,
                     artist: "Fall Out Boy",
                     title: "『 Fall Out Boy 』-  The Phoenix",
-                    status: "free",
+                    status: "taken",
                     translation: `к войне готовься!
 
 ты словно камень привязан
@@ -6599,7 +6666,7 @@ Oh, no
                     id: 83,
                     artist: "Radiohead",
                     title: "Creep",
-                    status: "free",
+                    status: "taken",
                     url: "https://youtu.be/XFkzRNyygfk",
                     translation: `Пока ты тут была
 Я грезил в слезах
