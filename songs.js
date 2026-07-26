@@ -1,5 +1,3 @@
-const { url } = require("node:inspector");
-
 const STATUS_COLORS = {
     free: {color: '#4CAF50', label: 'Свободен', description: 'Свободен для исполнения'},
     in_progress: {color: '#FF9800', label: 'В работе', description: 'Идёт запись вокала'},
