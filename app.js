@@ -6,7 +6,7 @@ let currentFilter = 'all';
 const statusTexts = {
     'free': 'Свободен',
     'in_progress': 'В работе',
-    'taken': 'Занят',
+    'taken': 'Бронь',
     'done': 'Готов'
 };
 
@@ -68,8 +68,12 @@ function createModal() {
             <h2 id="modalTitle"></h2>
             <p id="modalArtist" class="artist"></p>
             <p id="modalTranslator" class="category"></p>
-            <a id="modalUrl" href="#" target="_blank" style="color: #8b7355; margin-bottom: 0.5rem; display: inline-block;"></a>
+            <a id="modalUrl" href="#" target="_blank"></a>
             <div id="modalStatus" class="status"></div>
+            <button id="copyBtn" class="copy-btn" type="button">
+                <span class="icon">📋</span>
+                <span class="copy-btn-text">Скопировать текст</span>
+            </button>
             <div id="modalLyrics" class="lyrics-content"></div>
         </div>
     `;
@@ -85,6 +89,47 @@ function createModal() {
         }
     });
 
+    const copyBtn = div.querySelector('#copyBtn');
+    copyBtn.addEventListener('click', async () => {
+        const text = div.dataset.translation || '';
+        if (!text) return;
+
+        const iconEl = copyBtn.querySelector('.icon');
+        const textEl = copyBtn.querySelector('.copy-btn-text');
+        const originalIcon = iconEl.textContent;
+        const originalText = textEl.textContent;
+
+        let success = false;
+        try {
+            await navigator.clipboard.writeText(text);
+            success = true;
+        } catch (e) {
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                success = document.execCommand('copy');
+                document.body.removeChild(ta);
+            } catch (err) {
+                success = false;
+            }
+        }
+
+        if (success) {
+            copyBtn.classList.add('copied');
+            iconEl.textContent = '✓';
+            textEl.textContent = 'Скопировано!';
+            setTimeout(() => {
+                copyBtn.classList.remove('copied');
+                iconEl.textContent = originalIcon;
+                textEl.textContent = originalText;
+            }, 2000);
+        }
+    });
+
     return div;
 }
 
@@ -97,7 +142,7 @@ function renderTranslators(filteredTranslators) {
     filteredTranslators.forEach(t => totalSongs += t.songs.length);
 
     if (totalSongs > 0) {
-        translatorsList.innerHTML += `<p style="text-align: center; margin-bottom: 1rem; color: #8b7355;">Всего переводов: ${totalSongs}</p>`;
+        translatorsList.innerHTML += `<p class="songs-count">Всего переводов: ${totalSongs}</p>`;
     }
 
     filteredTranslators.forEach(translator => {
@@ -127,7 +172,7 @@ function renderTranslators(filteredTranslators) {
     });
 
     if (!hasAnySongs) {
-        translatorsList.innerHTML = '<p style="text-align: center; color: #888;">Ничего не найдено</p>';
+        translatorsList.innerHTML = '<p class="empty-message">Ничего не найдено</p>';
     }
 
     document.querySelectorAll('.song-card').forEach(card => {
@@ -175,6 +220,7 @@ function openSong(song) {
 
     const lyricsEl = document.getElementById('modalLyrics');
     lyricsEl.innerHTML = formatTranslation(song.translation);
+    modalEl.dataset.translation = song.translation || '';
 
     modalEl.classList.add('active');
 }
@@ -196,6 +242,33 @@ document.addEventListener('keydown', (e) => {
         if (modal) modal.classList.remove('active');
     }
 });
+
+/* ============ THEME SWITCHER ============ */
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle ? themeToggle.querySelector('.theme-icon') : null;
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (themeIcon) {
+        themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+    themeToggle && themeToggle.setAttribute(
+        'aria-label',
+        theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему'
+    );
+}
+
+if (themeToggle) {
+    const savedTheme = localStorage.getItem('phoenix-theme') || 'light';
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('phoenix-theme', next);
+    });
+}
 
 createModal();
 renderTranslators(translatorsData.translators);

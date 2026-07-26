@@ -1,0 +1,24 @@
+# Временные / служебные файлы обслуживания songs.js
+_check.js
+_compare.js
+_dump.js
+_dump.txt
+_fix.js
+_orig.js
+_renum.js
+*.bak
+*.tmp
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Логи
+*.log
+npm-debug.log*
+
+# Окружение
+.env
+.env.local
