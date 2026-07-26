@@ -997,7 +997,7 @@ main {
     word-wrap: break-word;
     max-height: 60vh;
     overflow-y: auto;
-    font-family: 'Podarok', Georgia, 'Times New Roman', serif;
+    font-family: 'Coolvetica', 'Segoe UI', system-ui, -apple-system, sans-serif;
     letter-spacing: 0.01em;
     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04);
 }
