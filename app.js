@@ -1,7 +1,21 @@
 const translatorsList = document.getElementById('translatorsList');
 const searchInput = document.getElementById('searchInput');
+const translatorSelect = document.getElementById('translatorSelect');
 const filterBtns = document.querySelectorAll('.filter-btn');
 let currentFilter = 'all';
+let currentTranslator = 'all';
+
+// Заполняем список переводчиков в select
+function populateTranslatorSelect() {
+    translatorsData.translators.forEach(t => {
+        const option = document.createElement('option');
+        option.value = t.id;
+        option.textContent = `${t.name} (${t.songs.length})`;
+        translatorSelect.appendChild(option);
+    });
+}
+
+populateTranslatorSelect();
 
 const statusTexts = {
     'free': 'Свободен',
@@ -235,6 +249,11 @@ filterBtns.forEach(btn => {
 });
 
 searchInput.addEventListener('input', filterData);
+
+translatorSelect.addEventListener('change', (e) => {
+    currentTranslator = e.target.value;
+    filterData();
+});
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
