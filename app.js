@@ -1,21 +1,39 @@
 const translatorsList = document.getElementById('translatorsList');
 const searchInput = document.getElementById('searchInput');
-const translatorSelect = document.getElementById('translatorSelect');
+const translatorButtons = document.getElementById('translatorButtons');
 const filterBtns = document.querySelectorAll('.filter-btn');
 let currentFilter = 'all';
 let currentTranslator = 'all';
 
 // Заполняем список переводчиков в select
-function populateTranslatorSelect() {
+function populateTranslatorButtons() {
+    const allBtn = document.createElement('button');
+    allBtn.type = 'button';
+    allBtn.className = 'translator-btn active';
+    allBtn.dataset.translator = 'all';
+    allBtn.textContent = 'Все';
+    translatorButtons.appendChild(allBtn);
+
     translatorsData.translators.forEach(t => {
-        const option = document.createElement('option');
-        option.value = t.id;
-        option.textContent = `${t.name} (${t.songs.length})`;
-        translatorSelect.appendChild(option);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'translator-btn';
+        btn.dataset.translator = t.id;
+        btn.textContent = `${t.name} (${t.songs.length})`;
+        translatorButtons.appendChild(btn);
+    });
+
+    translatorButtons.querySelectorAll('.translator-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            translatorButtons.querySelectorAll('.translator-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentTranslator = btn.dataset.translator;
+            filterData();
+        });
     });
 }
 
-populateTranslatorSelect();
+populateTranslatorButtons();
 
 const statusTexts = {
     'free': 'Свободен',
@@ -199,16 +217,18 @@ function renderTranslators(filteredTranslators) {
 }
 
 function filterData() {
-    let filtered = translatorsData.translators.map(t => ({
-        ...t,
-        songs: t.songs.filter(s => {
-            const matchesStatus = currentFilter === 'all' || s.status === currentFilter;
-            const matchesSearch = !searchInput.value ||
-                s.title.toLowerCase().includes(searchInput.value.toLowerCase()) ||
-                s.artist.toLowerCase().includes(searchInput.value.toLowerCase());
-            return matchesStatus && matchesSearch;
-        })
-    }));
+    let filtered = translatorsData.translators
+        .filter(t => currentTranslator === 'all' || t.id === currentTranslator)
+        .map(t => ({
+            ...t,
+            songs: t.songs.filter(s => {
+                const matchesStatus = currentFilter === 'all' || s.status === currentFilter;
+                const matchesSearch = !searchInput.value ||
+                    s.title.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+                    s.artist.toLowerCase().includes(searchInput.value.toLowerCase());
+                return matchesStatus && matchesSearch;
+            })
+        }));
 
     renderTranslators(filtered);
 }
@@ -249,11 +269,6 @@ filterBtns.forEach(btn => {
 });
 
 searchInput.addEventListener('input', filterData);
-
-translatorSelect.addEventListener('change', (e) => {
-    currentTranslator = e.target.value;
-    filterData();
-});
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
