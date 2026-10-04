@@ -566,6 +566,53 @@ main {
     box-shadow: var(--shadow-gold-soft), var(--shadow-md);
 }
 
+.translator-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.translator-filter label {
+    font-family: 'Coolvetica', sans-serif;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+}
+
+.translator-filter select {
+    font-family: 'Coolvetica', sans-serif;
+    padding: 0.7rem 2.5rem 0.7rem 1.25rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 50px;
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-sm);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3e%3cpath fill='%23b8860b' d='M6 8L0 0h12z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 10px;
+    min-width: 220px;
+}
+
+.translator-filter select:hover {
+    border-color: var(--gold-light);
+}
+
+.translator-filter select:focus {
+    outline: none;
+    border-color: var(--gold-light);
+    background-color: var(--gradient-input-focus);
+    box-shadow: var(--shadow-gold-soft), var(--shadow-md);
+}
+
 .songs-count {
     font-family: 'Coolvetica', sans-serif;
     text-align: center;
