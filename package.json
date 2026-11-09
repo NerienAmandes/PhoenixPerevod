@@ -1,0 +1,14 @@
+{
+  "name": "phoenix-perevod",
+  "version": "1.0.0",
+  "description": "Fire Phoenix Team — переводы песен",
+  "private": true,
+  "scripts": {
+    "dev": "node dev-server.js",
+    "start": "node dev-server.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

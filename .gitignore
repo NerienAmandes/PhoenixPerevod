@@ -22,3 +22,7 @@ npm-debug.log*
 # Окружение
 .env
 .env.local
+
+# Зависимости
+node_modules/
+.vercel/

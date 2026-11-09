@@ -5,8 +5,12 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 let currentFilter = 'all';
 let currentTranslator = 'all';
 
+// Актуальные данные (могут прийти из API или из songs.js)
+let dataSource = translatorsData;
+
 // Заполняем список переводчиков в select
 function populateTranslatorButtons() {
+    translatorButtons.innerHTML = '';
     const allBtn = document.createElement('button');
     allBtn.type = 'button';
     allBtn.className = 'translator-btn active';
@@ -14,7 +18,7 @@ function populateTranslatorButtons() {
     allBtn.textContent = 'Все';
     translatorButtons.appendChild(allBtn);
 
-    translatorsData.translators.forEach(t => {
+    dataSource.translators.forEach(t => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'translator-btn';
@@ -32,8 +36,6 @@ function populateTranslatorButtons() {
         });
     });
 }
-
-populateTranslatorButtons();
 
 const statusTexts = {
     'free': 'Свободен',
@@ -209,15 +211,17 @@ function renderTranslators(filteredTranslators) {
 
     document.querySelectorAll('.song-card').forEach(card => {
         card.addEventListener('click', () => {
-            const songId = parseInt(card.dataset.songId);
-            const song = songs.find(s => s.id === songId);
+            const songId = parseInt(card.dataset.songId, 10);
+            const allSongs = [];
+            dataSource.translators.forEach(t => allSongs.push(...t.songs));
+            const song = allSongs.find(s => s.id === songId);
             if (song) openSong(song);
         });
     });
 }
 
 function filterData() {
-    let filtered = translatorsData.translators
+    let filtered = dataSource.translators
         .filter(t => currentTranslator === 'all' || t.id === currentTranslator)
         .map(t => ({
             ...t,
@@ -305,4 +309,20 @@ if (themeToggle) {
 }
 
 createModal();
-renderTranslators(translatorsData.translators);
+
+// Загружаем данные: сначала пробуем API, при ошибке — локальный songs.js
+async function initData() {
+    try {
+        const res = await fetch('/api/songs');
+        if (!res.ok) throw new Error('API недоступен');
+        const data = await res.json();
+        dataSource = data;
+    } catch (e) {
+        // Fallback на статические данные (для локального просмотра без сервера)
+        dataSource = translatorsData;
+    }
+    populateTranslatorButtons();
+    renderTranslators(dataSource.translators);
+}
+
+initData();
