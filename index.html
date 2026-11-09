@@ -20,6 +20,7 @@
         </div>
         <nav class="header-nav">
             <a href="index.html" class="active">Главная</a>
+            <button class="theme-toggle" id="themeToggle" title="Сменить тему">🌙</button>
         </nav>
     </header>
 
@@ -119,6 +120,27 @@
         </div>
     </div>
 
+    <script>
+    (function() {
+        const saved = localStorage.getItem('phoenix_theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('themeToggle');
+            const updateIcon = () => {
+                const t = document.documentElement.getAttribute('data-theme');
+                btn.textContent = t === 'light' ? '🌙' : '☀️';
+            };
+            updateIcon();
+            btn.addEventListener('click', () => {
+                const cur = document.documentElement.getAttribute('data-theme');
+                const next = cur === 'light' ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('phoenix_theme', next);
+                updateIcon();
+            });
+        });
+    })();
+    </script>
     <script src="app.js"></script>
 </body>
 </html>
