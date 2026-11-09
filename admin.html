@@ -424,9 +424,9 @@
             </div>
 
             <!-- Songs -->
-            <!-- Songs -->
             <div class="admin-section" id="tab-songs">
-                <div class="add-bar">
+                <!-- Верхняя строка с основными данными -->
+                <div class="add-bar" style="flex-wrap: wrap; gap: 0.8rem; margin-bottom: 0.8rem;">
                     <input id="newSongTitle" placeholder="Название песни" style="flex: 2; min-width: 150px;">
                     <input id="newSongArtist" placeholder="Исполнитель" style="flex: 1.5; min-width: 120px;">
                     <input id="newSongUrl" placeholder="Ссылка (YouTube и т.п.)" style="flex: 1.5; min-width: 150px;">
@@ -437,8 +437,17 @@
                         <option value="taken">Бронь</option>
                         <option value="done">Готов</option>
                     </select>
-                    <button class="btn-add" onclick="addSong()">+ Добавить</button>
                 </div>
+
+                <!-- НОВОЕ: Поле для текста перевода сразу при создании -->
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <textarea id="newSongTranslation"
+                        placeholder="Текст перевода (можно вставить сюда или добавить позже)"
+                        style="width: 100%; min-height: 150px; padding: 0.8rem; border: 1px solid var(--border-soft); border-radius: 8px; background: var(--bg-surface); color: var(--text-primary); font-family: monospace; font-size: 0.95rem; resize: vertical; line-height: 1.6;"></textarea>
+                </div>
+
+                <button class="btn-add" onclick="addSong()" style="margin-bottom: 1.5rem;">+ Добавить песню</button>
+
                 <div class="search-container" style="margin-bottom:1.5rem;">
                     <input type="text" class="search-input" id="songSearch"
                         placeholder="Поиск песни по названию или исполнителю..." style="padding:0.8rem 1rem;">
@@ -732,30 +741,39 @@
         async function addSong() {
             const title = document.getElementById('newSongTitle').value.trim();
             const artist = document.getElementById('newSongArtist').value.trim();
-            const url = document.getElementById('newSongUrl').value.trim(); // <-- Добавили чтение ссылки
+            const url = document.getElementById('newSongUrl').value.trim();
             const translator_id = document.getElementById('newSongTranslator').value;
             const status = document.getElementById('newSongStatus').value;
+            const translation = document.getElementById('newSongTranslation').value; // <-- Читаем текст
 
-            if (!title) { toast('Введи название'); return; }
+            if (!title) { toast('Введи название песни'); return; }
+            if (!translator_id) { toast('Выбери переводчика'); return; }
 
             try {
                 await api('/api/admin/song', {
                     method: 'POST',
-                    body: JSON.stringify({ title, artist, url, translator_id, status }) // <-- Добавили url в отправку
+                    body: JSON.stringify({
+                        title,
+                        artist,
+                        url,
+                        translator_id,
+                        status,
+                        translation // <-- Отправляем текст в базу
+                    })
                 });
 
-                // Очищаем поля после успешного добавления
+                // Очищаем все поля после успешного добавления
                 document.getElementById('newSongTitle').value = '';
                 document.getElementById('newSongArtist').value = '';
-                document.getElementById('newSongUrl').value = ''; // <-- Очищаем поле ссылки
+                document.getElementById('newSongUrl').value = '';
+                document.getElementById('newSongTranslation').value = ''; // <-- Очищаем текст
 
-                toast('Песня добавлена!');
+                toast('Песня успешно добавлена!');
                 loadData();
             } catch (e) {
-                toast(e.message);
+                toast('Ошибка: ' + e.message);
             }
         }
-
         function editSong(id) {
             const song = allSongs.find(s => s.id === id);
             if (!song) return;
