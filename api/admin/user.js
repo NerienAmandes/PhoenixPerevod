@@ -1,15 +1,18 @@
-// /api/admin/user — CRUD пользователей админки (только для админов)
+// /api/admin/user — CRUD пользователей админки
 const { sql } = require('../_db');
-const { requireAdmin } = require('../_auth');
+const { requireAuth } = require('../_auth'); // Используем requireAuth для гибкости
 const { hashPassword } = require('../_password');
 
 async function handler(req, res) {
     try {
-        // GET — список пользователей (без хешей паролей)
+        // GET — список пользователей
         if (req.method === 'GET') {
+            // 🔒 Доп. защита: раскомментируй строку ниже, если список юзеров должны видеть ТОЛЬКО админы
+            // if (req.user.role !== 'admin') return res.status(403).json({ error: 'Только админ может просматривать список' });
+
             const users = await sql`
-                SELECT id, username, role, created_at
-                FROM users
+                SELECT id, username, role, created_at 
+                FROM users 
                 ORDER BY id
             `;
             return res.json(users);
@@ -17,12 +20,19 @@ async function handler(req, res) {
 
         // POST — создать пользователя
         if (req.method === 'POST') {
+            // 🔒 Создание новых пользователей — только для админов
+            if (req.user.role !== 'admin') {
+                return res.status(403).json({ error: 'Только администратор может создавать пользователей' });
+            }
+
             const { username, password, role } = req.body || {};
             if (!username || !password) {
                 return res.status(400).json({ error: 'Логин и пароль обязательны' });
             }
+
             const userRole = role === 'admin' ? 'admin' : 'editor';
             const password_hash = hashPassword(password);
+
             const [user] = await sql`
                 INSERT INTO users (username, password_hash, role)
                 VALUES (${username}, ${password_hash}, ${userRole})
@@ -36,6 +46,28 @@ async function handler(req, res) {
             const { id, username, password, role } = req.body || {};
             if (!id) return res.status(400).json({ error: 'id обязателен' });
 
+            // 🔒 ШАГ 1: Узнаём, кого именно пытаются изменить
+            const targetUsers = await sql`SELECT id, username, role FROM users WHERE id = ${id}`;
+            const targetUser = targetUsers[0];
+
+            if (!targetUser) {
+                return res.status(404).json({ error: 'Пользователь не найден' });
+            }
+
+            // 🔒 ШАГ 2: АБСОЛЮТНЫЙ ЗАПРЕТ редактору трогать админа
+            if (req.user.role === 'editor' && targetUser.role === 'admin') {
+                return res.status(403).json({ error: 'Редактор не может изменять данные администратора' });
+            }
+
+            // 🔒 ШАГ 3: Админ не может случайно снять с себя права админа (защита от "выстрела в ногу")
+            // (Сравниваем req.user.sub из токена с id целевого пользователя)
+            if (req.user.role === 'admin' && targetUser.role === 'admin' && req.user.sub == id) {
+                if (role !== undefined && role !== 'admin') {
+                    return res.status(400).json({ error: 'Администратор не может снять с себя права админа' });
+                }
+            }
+
+            // Формируем безопасный запрос на обновление
             const setClauses = [];
             const params = [];
             let idx = 1;
@@ -61,9 +93,22 @@ async function handler(req, res) {
             const id = parseInt(req.query.id, 10);
             if (!id) return res.status(400).json({ error: 'id обязателен' });
 
-            // Не даём удалить самого себя (по id из токена), если он админ — на всякий случай
-            if (req.user && req.user.sub === id) {
+            // 🔒 ШАГ 1: Проверяем, кого удаляем
+            const targetUsers = await sql`SELECT id, role FROM users WHERE id = ${id}`;
+            const targetUser = targetUsers[0];
+
+            if (!targetUser) {
+                return res.status(404).json({ error: 'Пользователь не найден' });
+            }
+
+            // 🔒 ШАГ 2: Нельзя удалить самого себя (сравниваем с req.user.sub из токена)
+            if (req.user.sub == id) {
                 return res.status(400).json({ error: 'Нельзя удалить самого себя' });
+            }
+
+            // 🔒 ШАГ 3: Удаление — привилегия только админа
+            if (req.user.role !== 'admin') {
+                return res.status(403).json({ error: 'Только администратор может удалять пользователей' });
             }
 
             const result = await sql`DELETE FROM users WHERE id = ${id} RETURNING id`;
@@ -81,4 +126,5 @@ async function handler(req, res) {
     }
 }
 
-module.exports = requireAdmin(handler);
+// Экспортируем с базовой проверкой авторизации. Вся логика прав теперь внутри handler!
+module.exports = requireAuth(handler);
