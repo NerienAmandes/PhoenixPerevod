@@ -32,7 +32,8 @@ const API_ROUTES = {
     '/api/songs': require('./api/songs.js'),
     '/api/login': require('./api/login.js'),
     '/api/admin/song': require('./api/admin/song.js'),
-    '/api/admin/translator': require('./api/admin/translator.js')
+    '/api/admin/translator': require('./api/admin/translator.js'),
+    '/api/admin/user': require('./api/admin/user.js')
 };
 
 const server = http.createServer((req, res) => {

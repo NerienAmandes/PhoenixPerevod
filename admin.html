@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Админка — PhoenixPerevod</title>
+    <link rel="icon" type="image/svg+xml" href="phoenix-logo.svg">
     <link rel="stylesheet" href="styles.css">
     <style>
         .admin-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
@@ -152,7 +153,8 @@
     <div id="loginView" style="display:none">
         <div class="login-card">
             <h2>🔒 Вход в админку</h2>
-            <input type="password" id="loginPassword" placeholder="Пароль">
+            <input type="text" id="loginUsername" placeholder="Логин" autocomplete="username">
+            <input type="password" id="loginPassword" placeholder="Пароль" autocomplete="current-password">
             <button onclick="doLogin()">Войти</button>
             <div class="login-error" id="loginError"></div>
         </div>
@@ -161,13 +163,14 @@
     <!-- Dashboard -->
     <div id="dashboardView" style="display:none">
         <div class="admin-header">
-            <h1>⚙️ Админка PhoenixPerevod</h1>
+            <h1><img src="phoenix-logo.svg" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:0.5rem;"> Админка PhoenixPerevod</h1>
             <button class="logout-btn" onclick="doLogout()">Выйти</button>
         </div>
 
         <div class="tabs">
             <button class="tab-btn active" data-tab="translators" onclick="switchTab('translators')">Переводчики</button>
             <button class="tab-btn" data-tab="songs" onclick="switchTab('songs')">Песни</button>
+            <button class="tab-btn" data-tab="users" id="tabBtnUsers" onclick="switchTab('users')" style="display:none">Пользователи</button>
         </div>
 
         <!-- Translators -->
@@ -195,6 +198,20 @@
                 <button class="btn-add" onclick="addSong()">+ Добавить песню</button>
             </div>
             <div id="songsByTranslator"></div>
+        </div>
+
+        <!-- Users -->
+        <div class="admin-section" id="tab-users">
+            <div class="add-bar">
+                <input id="newUserUsername" placeholder="Логин">
+                <input id="newUserPassword" type="password" placeholder="Пароль">
+                <select id="newUserRole">
+                    <option value="editor">Редактор</option>
+                    <option value="admin">Админ</option>
+                </select>
+                <button class="btn-add" onclick="addUser()">+ Добавить пользователя</button>
+            </div>
+            <div class="admin-list" id="usersList"></div>
         </div>
     </div>
 </div>
@@ -244,14 +261,20 @@
 
 <script>
 const TOKEN_KEY = 'phoenix_admin_token';
+const ROLE_KEY = 'phoenix_admin_role';
 const statusLabels = { free: 'Свободен', in_progress: 'В работе', taken: 'Бронь', done: 'Готов' };
+const roleLabels = { admin: 'Админ', editor: 'Редактор' };
 let allTranslators = [];
 let allSongs = [];
+let allUsers = [];
 let currentTab = 'translators';
 
 function getToken() { return localStorage.getItem(TOKEN_KEY); }
 function setToken(t) { localStorage.setItem(TOKEN_KEY, t); }
 function clearToken() { localStorage.removeItem(TOKEN_KEY); }
+function getRole() { return localStorage.getItem(ROLE_KEY); }
+function setRole(r) { localStorage.setItem(ROLE_KEY, r); }
+function clearRole() { localStorage.removeItem(ROLE_KEY); }
 
 function toast(msg) {
     const el = document.getElementById('toast');
@@ -274,23 +297,29 @@ async function api(path, options = {}) {
 function showLogin() {
     document.getElementById('loginView').style.display = 'block';
     document.getElementById('dashboardView').style.display = 'none';
+    document.getElementById('loginUsername').value = '';
     document.getElementById('loginPassword').value = '';
     document.getElementById('loginError').textContent = '';
-    document.getElementById('loginPassword').focus();
+    document.getElementById('loginUsername').focus();
 }
 
 function showDashboard() {
     document.getElementById('loginView').style.display = 'none';
     document.getElementById('dashboardView').style.display = 'block';
+    // Вкладка «Пользователи» только для админов
+    const isAdmin = getRole() === 'admin';
+    document.getElementById('tabBtnUsers').style.display = isAdmin ? '' : 'none';
     loadData();
 }
 
 async function doLogin() {
+    const username = document.getElementById('loginUsername').value.trim();
     const password = document.getElementById('loginPassword').value;
     if (!password) return;
     try {
-        const { token } = await api('/api/login', { method: 'POST', body: JSON.stringify({ password }) });
-        setToken(token);
+        const data = await api('/api/login', { method: 'POST', body: JSON.stringify({ username, password }) });
+        setToken(data.token);
+        setRole(data.role || 'admin');
         showDashboard();
     } catch (e) {
         document.getElementById('loginError').textContent = e.message;
@@ -299,6 +328,7 @@ async function doLogin() {
 
 function doLogout() {
     clearToken();
+    clearRole();
     showLogin();
 }
 
@@ -315,7 +345,8 @@ function switchTab(tab) {
     document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
     document.getElementById('tab-' + tab).classList.add('active');
     if (tab === 'translators') renderTranslators();
-    else renderSongs();
+    else if (tab === 'songs') renderSongs();
+    else if (tab === 'users') renderUsers();
 }
 
 // ---------- Load data ----------
@@ -326,8 +357,19 @@ async function loadData() {
         allSongs = [];
         allTranslators.forEach(t => t.songs.forEach(s => allSongs.push({ ...s, translator_id: t.id })));
         populateTranslatorSelects();
+
+        // Загружаем пользователей только для админов
+        if (getRole() === 'admin') {
+            try {
+                allUsers = await api('/api/admin/user');
+            } catch (e) {
+                allUsers = [];
+            }
+        }
+
         if (currentTab === 'translators') renderTranslators();
-        else renderSongs();
+        else if (currentTab === 'songs') renderSongs();
+        else if (currentTab === 'users') renderUsers();
     } catch (e) {
         toast('Ошибка загрузки: ' + e.message);
     }
@@ -487,6 +529,74 @@ async function deleteSong(id) {
     try {
         await api(`/api/admin/song?id=${id}`, { method: 'DELETE' });
         toast('Песня удалена');
+        loadData();
+    } catch (e) { toast(e.message); }
+}
+
+// ---------- Users ----------
+function renderUsers() {
+    const list = document.getElementById('usersList');
+    if (!allUsers || allUsers.length === 0) {
+        list.innerHTML = '<div class="empty-state">Нет пользователей. Добавьте первого.</div>';
+        return;
+    }
+    list.innerHTML = allUsers.map(u => `
+        <div class="admin-item">
+            <div class="admin-item-info">
+                <div class="admin-item-title">${escapeHtml(u.username)}</div>
+                <div class="admin-item-sub">ID: ${u.id} · роль: ${roleLabels[u.role] || u.role} · создан: ${new Date(u.created_at).toLocaleDateString('ru-RU')}</div>
+            </div>
+            <div class="admin-item-actions">
+                <button class="btn-edit" onclick="editUserRole(${u.id})">✏️ Роль</button>
+                <button class="btn-edit" onclick="resetUserPassword(${u.id})">🔑 Пароль</button>
+                <button class="btn-delete" onclick="deleteUser(${u.id})">🗑️ Удалить</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function addUser() {
+    const username = document.getElementById('newUserUsername').value.trim();
+    const password = document.getElementById('newUserPassword').value;
+    const role = document.getElementById('newUserRole').value;
+    if (!username || !password) { toast('Заполни логин и пароль'); return; }
+    try {
+        await api('/api/admin/user', { method: 'POST', body: JSON.stringify({ username, password, role }) });
+        document.getElementById('newUserUsername').value = '';
+        document.getElementById('newUserPassword').value = '';
+        toast('Пользователь добавлен');
+        loadData();
+    } catch (e) { toast(e.message); }
+}
+
+async function editUserRole(id) {
+    const user = allUsers.find(u => u.id === id);
+    if (!user) return;
+    const role = prompt('Роль (admin или editor):', user.role);
+    if (role === null) return;
+    const clean = role.trim();
+    if (clean !== 'admin' && clean !== 'editor') { toast('Только admin или editor'); return; }
+    try {
+        await api('/api/admin/user', { method: 'PUT', body: JSON.stringify({ id, role: clean }) });
+        toast('Роль обновлена');
+        loadData();
+    } catch (e) { toast(e.message); }
+}
+
+async function resetUserPassword(id) {
+    const password = prompt('Новый пароль для пользователя:');
+    if (password === null || !password.trim()) return;
+    try {
+        await api('/api/admin/user', { method: 'PUT', body: JSON.stringify({ id, password: password.trim() }) });
+        toast('Пароль обновлён');
+    } catch (e) { toast(e.message); }
+}
+
+async function deleteUser(id) {
+    if (!confirm('Удалить этого пользователя?')) return;
+    try {
+        await api(`/api/admin/user?id=${id}`, { method: 'DELETE' });
+        toast('Пользователь удалён');
         loadData();
     } catch (e) { toast(e.message); }
 }

@@ -1,17 +1,12 @@
-// POST /api/login — проверка пароля, выдача JWT
+// POST /api/login — вход по логину + паролю (таблица users)
 const jwt = require('jsonwebtoken');
+const { sql } = require('./_db');
+const { verifyPassword } = require('./_password');
 
-const crypto = require('crypto');
-
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Безопасное сравнение строк (защита от timing-атак)
-function safeEqual(a, b) {
-    const bufA = Buffer.from(String(a));
-    const bufB = Buffer.from(String(b));
-    if (bufA.length !== bufB.length) return false;
-    return crypto.timingSafeEqual(bufA, bufB);
+function signToken(payload) {
+    return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
 }
 
 module.exports = async (req, res) => {
@@ -19,22 +14,27 @@ module.exports = async (req, res) => {
         return res.status(405).json({ error: 'Метод не поддерживается' });
     }
 
-    const { password } = req.body || {};
+    const { username, password } = req.body || {};
 
-    if (!ADMIN_PASSWORD) {
-        console.error('[login] ADMIN_PASSWORD не задана в env');
-        return res.status(500).json({ error: 'Сервер не настроен' });
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Логин и пароль обязательны' });
     }
 
-    if (!password || !safeEqual(password, ADMIN_PASSWORD)) {
-        return res.status(401).json({ error: 'Неверный пароль' });
+    try {
+        const users = await sql`
+            SELECT id, username, password_hash, role
+            FROM users
+            WHERE username = ${username}
+            LIMIT 1
+        `;
+        const user = users[0];
+        if (!user || !verifyPassword(password, user.password_hash)) {
+            return res.status(401).json({ error: 'Неверный логин или пароль' });
+        }
+        const token = signToken({ sub: user.id, username: user.username, role: user.role });
+        return res.json({ token, username: user.username, role: user.role });
+    } catch (e) {
+        console.error('[login] Ошибка запроса пользователя:', e);
+        return res.status(500).json({ error: 'Ошибка сервера' });
     }
-
-    const token = jwt.sign(
-        { role: 'admin' },
-        JWT_SECRET,
-        { expiresIn: '7d' }
-    );
-
-    return res.json({ token });
 };

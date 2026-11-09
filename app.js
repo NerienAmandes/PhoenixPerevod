@@ -1,328 +1,288 @@
-const translatorsList = document.getElementById('translatorsList');
-const searchInput = document.getElementById('searchInput');
-const translatorButtons = document.getElementById('translatorButtons');
-const filterBtns = document.querySelectorAll('.filter-btn');
-let currentFilter = 'all';
-let currentTranslator = 'all';
+// ===== Данные =====
+let allTranslators = [];
+let allSongs = [];
 
-// Актуальные данные (могут прийти из API или из songs.js)
-let dataSource = translatorsData;
-
-// Заполняем список переводчиков в select
-function populateTranslatorButtons() {
-    translatorButtons.innerHTML = '';
-    const allBtn = document.createElement('button');
-    allBtn.type = 'button';
-    allBtn.className = 'translator-btn active';
-    allBtn.dataset.translator = 'all';
-    allBtn.textContent = 'Все';
-    translatorButtons.appendChild(allBtn);
-
-    dataSource.translators.forEach(t => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'translator-btn';
-        btn.dataset.translator = t.id;
-        btn.textContent = `${t.name} (${t.songs.length})`;
-        translatorButtons.appendChild(btn);
-    });
-
-    translatorButtons.querySelectorAll('.translator-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            translatorButtons.querySelectorAll('.translator-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentTranslator = btn.dataset.translator;
-            filterData();
-        });
-    });
-}
-
-const statusTexts = {
-    'free': 'Свободен',
-    'in_progress': 'В работе',
-    'taken': 'Бронь',
-    'done': 'Готов'
+let filters = {
+    status: 'all',
+    translator: 'all',
+    search: ''
 };
 
-function escapeHtml(text) {
-    return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-}
+const statusLabels = {
+    free: 'Свободен',
+    in_progress: 'В работе',
+    taken: 'Бронь',
+    done: 'Готов'
+};
 
-function formatTranslation(translation) {
-    const normalized = (translation || '').replace(/\r\n?/g, '\n').trim();
-    if (!normalized) return '';
+const statusClass = {
+    free: 'status-free',
+    in_progress: 'status-progress',
+    taken: 'status-booked',
+    done: 'status-ready'
+};
 
-    const lines = normalized.split('\n');
-    const parts = [];
-    let paragraphLines = [];
-
-    const flushParagraph = () => {
-        if (paragraphLines.length === 0) return;
-        parts.push(
-            `<p class="lyrics-paragraph">${paragraphLines.map(line => escapeHtml(line)).join('<br>')}</p>`
-        );
-        paragraphLines = [];
-    };
-
-    lines.forEach(rawLine => {
-        const line = rawLine.trim();
-
-        if (!line) {
-            flushParagraph();
-            parts.push('<div class="lyrics-break"></div>');
-            return;
-        }
-
-        if (/^\[.*\]$/.test(line)) {
-            flushParagraph();
-            parts.push(`<p class="lyrics-section">${escapeHtml(line)}</p>`);
-            return;
-        }
-
-        paragraphLines.push(line);
-    });
-
-    flushParagraph();
-
-    return parts.join('');
-}
-
-function createModal() {
-    const div = document.createElement('div');
-    div.id = 'songModal';
-    div.className = 'song-modal';
-    div.innerHTML = `
-        <div class="modal-content">
-            <button class="close-btn">&times;</button>
-            <h2 id="modalTitle"></h2>
-            <p id="modalArtist" class="artist"></p>
-            <p id="modalTranslator" class="category"></p>
-            <a id="modalUrl" href="#" target="_blank"></a>
-            <div id="modalStatus" class="status"></div>
-            <button id="copyBtn" class="copy-btn" type="button">
-                <span class="icon">📋</span>
-                <span class="copy-btn-text">Скопировать текст</span>
-            </button>
-            <div id="modalLyrics" class="lyrics-content"></div>
-        </div>
-    `;
-    document.body.appendChild(div);
-
-    div.querySelector('.close-btn').addEventListener('click', () => {
-        div.classList.remove('active');
-    });
-
-    div.addEventListener('click', (e) => {
-        if (e.target === div) {
-            div.classList.remove('active');
-        }
-    });
-
-    const copyBtn = div.querySelector('#copyBtn');
-    copyBtn.addEventListener('click', async () => {
-        const text = div.dataset.translation || '';
-        if (!text) return;
-
-        const iconEl = copyBtn.querySelector('.icon');
-        const textEl = copyBtn.querySelector('.copy-btn-text');
-        const originalIcon = iconEl.textContent;
-        const originalText = textEl.textContent;
-
-        let success = false;
-        try {
-            await navigator.clipboard.writeText(text);
-            success = true;
-        } catch (e) {
-            try {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                ta.style.position = 'fixed';
-                ta.style.opacity = '0';
-                document.body.appendChild(ta);
-                ta.select();
-                success = document.execCommand('copy');
-                document.body.removeChild(ta);
-            } catch (err) {
-                success = false;
-            }
-        }
-
-        if (success) {
-            copyBtn.classList.add('copied');
-            iconEl.textContent = '✓';
-            textEl.textContent = 'Скопировано!';
-            setTimeout(() => {
-                copyBtn.classList.remove('copied');
-                iconEl.textContent = originalIcon;
-                textEl.textContent = originalText;
-            }, 2000);
-        }
-    });
-
-    return div;
-}
-
-function renderTranslators(filteredTranslators) {
-    translatorsList.innerHTML = '';
-
-    let hasAnySongs = false;
-    let totalSongs = 0;
-
-    filteredTranslators.forEach(t => totalSongs += t.songs.length);
-
-    if (totalSongs > 0) {
-        translatorsList.innerHTML += `<p class="songs-count">Всего переводов: ${totalSongs}</p>`;
+// ===== Загрузка данных из БД =====
+async function loadData() {
+    try {
+        const res = await fetch('/api/songs');
+        if (!res.ok) throw new Error('Ошибка загрузки: ' + res.status);
+        const data = await res.json();
+        allTranslators = data.translators || [];
+        allSongs = [];
+        allTranslators.forEach(t => t.songs.forEach(s => allSongs.push({ ...s, translator_id: t.id })));
+        buildTranslatorFilters();
+        updateStats();
+        render();
+    } catch (e) {
+        console.error(e);
+        document.getElementById('translationGroups').innerHTML =
+            '<div class="empty-state"><span class="empty-emoji">😿</span><p>Не удалось загрузить данные</p></div>';
     }
+}
 
-    filteredTranslators.forEach(translator => {
-        if (translator.songs.length === 0) return;
+// ===== Статистика в сайдбаре =====
+function plural(n, one, few, many) {
+    n = Math.abs(n) % 100;
+    const n1 = n % 10;
+    if (n > 10 && n < 20) return many;
+    if (n1 > 1 && n1 < 5) return few;
+    if (n1 === 1) return one;
+    return many;
+}
 
-        hasAnySongs = true;
+function statText(n) {
+    return `${n} ${plural(n, 'перевод', 'перевода', 'переводов')}`;
+}
 
-        const section = document.createElement('div');
-        section.className = 'translator-section';
+function updateStats() {
+    const counts = {
+        total: allSongs.length,
+        free: allSongs.filter(s => s.status === 'free').length,
+        in_progress: allSongs.filter(s => s.status === 'in_progress').length,
+        taken: allSongs.filter(s => s.status === 'taken').length,
+        done: allSongs.filter(s => s.status === 'done').length
+    };
+    document.getElementById('statTotal').textContent = statText(counts.total);
+    document.getElementById('statFree').textContent = statText(counts.free);
+    document.getElementById('statProgress').textContent = statText(counts.in_progress);
+    document.getElementById('statTaken').textContent = statText(counts.taken);
+    document.getElementById('statDone').textContent = statText(counts.done);
+}
 
-        const songCards = translator.songs.map(song => `
-            <div class="song-card" data-song-id="${song.id}">
-                <h3>${song.title}</h3>
-                <p class="artist">${song.artist}</p>
-                <span class="status ${song.status}">${statusTexts[song.status]}</span>
-            </div>
+// ===== Кнопки переводчиков =====
+function buildTranslatorFilters() {
+    const container = document.getElementById('translatorFilters');
+    const allBtn = container.querySelector('[data-translator="all"]');
+    container.innerHTML = '';
+    container.appendChild(allBtn);
+    allTranslators.forEach(t => {
+        const btn = document.createElement('button');
+        btn.className = 'translator-btn';
+        btn.dataset.translator = t.id;
+        btn.innerHTML = `${escapeHtml(t.name)} <span class="count">${t.songs.length}</span>`;
+        btn.onclick = () => setFilter('translator', String(t.id));
+        container.appendChild(btn);
+    });
+}
+
+// ===== Установка фильтра =====
+function setFilter(type, value) {
+    filters[type] = value;
+    if (type === 'status') {
+        // Синхронизируем сайдбар и верхние кнопки
+        document.querySelectorAll('.sidebar-link').forEach(b => b.classList.toggle('active', b.dataset.status === value));
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.status === value));
+    }
+    if (type === 'translator') {
+        document.querySelectorAll('.translator-btn').forEach(b => b.classList.toggle('active', b.dataset.translator === value));
+    }
+    render();
+}
+
+// ===== Фильтрация =====
+function getFilteredSongs() {
+    return allSongs.filter(s => {
+        if (filters.status !== 'all' && s.status !== filters.status) return false;
+        if (filters.translator !== 'all' && String(s.translator_id) !== filters.translator) return false;
+        if (filters.search) {
+            const q = filters.search.toLowerCase();
+            if (!s.title.toLowerCase().includes(q) && !s.artist.toLowerCase().includes(q)) return false;
+        }
+        return true;
+    });
+}
+
+// ===== Рендер =====
+function render() {
+    const filtered = getFilteredSongs();
+    const container = document.getElementById('translationGroups');
+    const empty = document.getElementById('emptyState');
+
+    if (filtered.length === 0) {
+        container.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+    }
+    empty.style.display = 'none';
+
+    // Группируем по переводчику с учётом фильтра
+    const byTranslator = {};
+    filtered.forEach(s => {
+        if (!byTranslator[s.translator_id]) byTranslator[s.translator_id] = [];
+        byTranslator[s.translator_id].push(s);
+    });
+
+    const html = allTranslators
+        .filter(t => byTranslator[t.id])
+        .map(t => `
+            <section class="translation-group">
+                <div class="group-header">
+                    <h3>${escapeHtml(t.name)}</h3>
+                    <span class="item-count">${byTranslator[t.id].length} ${plural(byTranslator[t.id].length, 'песня', 'песни', 'песен')}</span>
+                </div>
+                <div class="group-items">
+                    ${byTranslator[t.id].map((s, i) => `
+                        <div class="translation-item" data-song-id="${s.id}">
+                            <div class="item-number">${String(i + 1).padStart(2, '0')}</div>
+                            <div class="item-info">
+                                <h4>${escapeHtml(s.title)}</h4>
+                                <p>${escapeHtml(s.artist)}</p>
+                            </div>
+                            <span class="item-status ${statusClass[s.status] || 'status-free'}">${statusLabels[s.status] || s.status}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
         `).join('');
 
-        section.innerHTML = `
-            <h2 class="translator-title">${translator.name} (${translator.songs.length})</h2>
-            <div class="translator-songs">
-                ${songCards}
-            </div>
-        `;
+    container.innerHTML = html;
 
-        translatorsList.appendChild(section);
-    });
-
-    if (!hasAnySongs) {
-        translatorsList.innerHTML = '<p class="empty-message">Ничего не найдено</p>';
-    }
-
-    document.querySelectorAll('.song-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const songId = parseInt(card.dataset.songId, 10);
-            const allSongs = [];
-            dataSource.translators.forEach(t => allSongs.push(...t.songs));
-            const song = allSongs.find(s => s.id === songId);
-            if (song) openSong(song);
+    // Клик по песне
+    container.querySelectorAll('.translation-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const id = parseInt(item.dataset.songId, 10);
+            openSongModal(id);
         });
     });
 }
 
-function filterData() {
-    let filtered = dataSource.translators
-        .filter(t => currentTranslator === 'all' || t.id === currentTranslator)
-        .map(t => ({
-            ...t,
-            songs: t.songs.filter(s => {
-                const matchesStatus = currentFilter === 'all' || s.status === currentFilter;
-                const matchesSearch = !searchInput.value ||
-                    s.title.toLowerCase().includes(searchInput.value.toLowerCase()) ||
-                    s.artist.toLowerCase().includes(searchInput.value.toLowerCase());
-                return matchesStatus && matchesSearch;
-            })
-        }));
+// ===== Модалка с переводом =====
+function openSongModal(songId) {
+    const song = allSongs.find(s => s.id === songId);
+    if (!song) return;
 
-    renderTranslators(filtered);
-}
+    const translator = allTranslators.find(t => t.id === song.translator_id);
 
-function openSong(song) {
-    const modalEl = document.getElementById('songModal');
     document.getElementById('modalTitle').textContent = song.title;
     document.getElementById('modalArtist').textContent = song.artist;
-    document.getElementById('modalTranslator').textContent = song.translatorName;
+    document.getElementById('modalTranslator').textContent = `Перевод: ${translator ? translator.name : ''}`;
+
+    const statusEl = document.getElementById('modalStatus');
+    statusEl.textContent = statusLabels[song.status] || song.status;
+    statusEl.className = 'item-status ' + (statusClass[song.status] || 'status-free');
 
     const urlEl = document.getElementById('modalUrl');
     if (song.url) {
         urlEl.href = song.url;
-        urlEl.textContent = '🎵 Слушать';
-        urlEl.style.display = 'inline-block';
+        urlEl.style.display = '';
     } else {
         urlEl.style.display = 'none';
     }
 
-    const statusEl = document.getElementById('modalStatus');
-    statusEl.className = `status ${song.status}`;
-    statusEl.textContent = statusTexts[song.status];
-
     const lyricsEl = document.getElementById('modalLyrics');
-    lyricsEl.innerHTML = formatTranslation(song.translation);
-    modalEl.dataset.translation = song.translation || '';
-
-    modalEl.classList.add('active');
-}
-
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.dataset.filter;
-        filterData();
-    });
-});
-
-searchInput.addEventListener('input', filterData);
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        const modal = document.getElementById('songModal');
-        if (modal) modal.classList.remove('active');
+    if (song.translation && song.translation.trim()) {
+        lyricsEl.innerHTML = formatLyrics(song.translation);
+    } else {
+        lyricsEl.innerHTML = '<p style="color:var(--text-muted)">Перевод ещё не готов...</p>';
     }
-});
 
-/* ============ THEME SWITCHER ============ */
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = themeToggle ? themeToggle.querySelector('.theme-icon') : null;
+    document.getElementById('songModal').classList.add('active');
 
-function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    if (themeIcon) {
-        themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-    }
-    themeToggle && themeToggle.setAttribute(
-        'aria-label',
-        theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему'
-    );
+    // Сброс кнопки копирования
+    const btn = document.getElementById('copyBtn');
+    btn.classList.remove('copied');
+    btn.querySelector('.copy-text').textContent = 'Скопировать текст';
 }
 
-if (themeToggle) {
-    const savedTheme = localStorage.getItem('phoenix-theme') || 'light';
-    applyTheme(savedTheme);
-
-    themeToggle.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme') || 'light';
-        const next = current === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
-        localStorage.setItem('phoenix-theme', next);
-    });
+// Форматирование текста перевода (помечаем [Припев], [Куплет] и т.д.)
+function formatLyrics(text) {
+    const lines = text.split('\n');
+    return lines.map(line => {
+        const t = line.trim();
+        if (!t) return '<div class="lyrics-break"></div>';
+        if (/^\[.+\]$/.test(t)) return `<div class="lyrics-section">${escapeHtml(t)}</div>`;
+        return `<div>${escapeHtml(line)}</div>`;
+    }).join('');
 }
 
-createModal();
+function closeSongModal() {
+    document.getElementById('songModal').classList.remove('active');
+}
 
-// Загружаем данные: сначала пробуем API, при ошибке — локальный songs.js
-async function initData() {
+// ===== Копирование перевода =====
+document.getElementById('copyBtn').addEventListener('click', async () => {
+    const songId = parseInt(document.querySelector('.song-modal.active') ?
+        document.querySelector('.song-modal.active .modal-content').dataset.songId : '', 10);
+    const title = document.getElementById('modalTitle').textContent;
+    const artist = document.getElementById('modalArtist').textContent;
+    const translator = document.getElementById('modalTranslator').textContent;
+    const text = document.getElementById('modalLyrics').innerText;
+
+    const toCopy = `${title} — ${artist}\n${translator}\n\n${text}`;
+
     try {
-        const res = await fetch('/api/songs');
-        if (!res.ok) throw new Error('API недоступен');
-        const data = await res.json();
-        dataSource = data;
-    } catch (e) {
-        // Fallback на статические данные (для локального просмотра без сервера)
-        dataSource = translatorsData;
+        await navigator.clipboard.writeText(toCopy);
+    } catch {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = toCopy;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch {}
+        document.body.removeChild(ta);
     }
-    populateTranslatorButtons();
-    renderTranslators(dataSource.translators);
+
+    const btn = document.getElementById('copyBtn');
+    btn.classList.add('copied');
+    btn.querySelector('.copy-text').textContent = 'Скопировано!';
+    setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.querySelector('.copy-text').textContent = 'Скопировать текст';
+    }, 2000);
+});
+
+// ===== Обработчики =====
+document.getElementById('closeModal').addEventListener('click', closeSongModal);
+document.getElementById('songModal').addEventListener('click', (e) => {
+    if (e.target.id === 'songModal') closeSongModal();
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeSongModal();
+});
+
+document.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        setFilter('status', link.dataset.status);
+    });
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => setFilter('status', btn.dataset.status));
+});
+
+document.getElementById('searchInput').addEventListener('input', (e) => {
+    filters.search = e.target.value;
+    render();
+});
+
+// ===== Util =====
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str == null ? '' : String(str);
+    return div.innerHTML;
 }
 
-initData();
+// ===== Старт =====
+loadData();
