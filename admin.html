@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,401 +8,637 @@
     <link rel="icon" type="image/svg+xml" href="phoenix-logo.svg">
     <link rel="stylesheet" href="styles.css">
     <style>
-        .admin-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .admin-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
         .admin-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 2rem; padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
             border-bottom: 1px solid var(--border-soft);
         }
+
         .admin-header h1 {
             font-family: 'Podarok', Georgia, serif;
             background: var(--gradient-gold);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         .logout-btn {
-            padding: 0.6rem 1.2rem; border: 1px solid var(--border-soft);
-            background: var(--bg-surface); border-radius: 50px; cursor: pointer;
-            font-family: 'Coolvetica', sans-serif; transition: all var(--transition);
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border-soft);
+            background: var(--bg-surface);
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Coolvetica', sans-serif;
+            transition: all var(--transition);
         }
-        .logout-btn:hover { border-color: var(--gold-light); color: var(--gold-deep); }
+
+        .logout-btn:hover {
+            border-color: var(--gold-light);
+            color: var(--gold-deep);
+        }
 
         /* Login */
         .login-card {
-            max-width: 400px; margin: 6rem auto; padding: 2.5rem;
-            background: var(--bg-surface); border-radius: 18px;
-            border: 1px solid var(--border-soft); box-shadow: var(--shadow-lg);
+            max-width: 400px;
+            margin: 6rem auto;
+            padding: 2.5rem;
+            background: var(--bg-surface);
+            border-radius: 18px;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-lg);
         }
+
         .login-card h2 {
-            font-family: 'Podarok', Georgia, serif; text-align: center;
-            margin-bottom: 1.5rem; color: var(--text-primary);
+            font-family: 'Podarok', Georgia, serif;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
         }
+
         .login-card input {
-            width: 100%; padding: 0.85rem 1rem; margin-bottom: 1rem;
-            border: 1px solid var(--border-soft); border-radius: 10px;
-            background: var(--bg-tint); color: var(--text-primary);
-            font-family: 'Coolvetica', sans-serif; font-size: 1rem;
+            width: 100%;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-soft);
+            border-radius: 10px;
+            background: var(--bg-tint);
+            color: var(--text-primary);
+            font-family: 'Coolvetica', sans-serif;
+            font-size: 1rem;
         }
-        .login-card input:focus { outline: none; border-color: var(--gold-light); box-shadow: var(--shadow-gold-soft); }
+
+        .login-card input:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-gold-soft);
+        }
+
         .login-card button {
-            width: 100%; padding: 0.9rem; border: none; border-radius: 10px;
-            background: var(--gradient-gold); color: #fff; cursor: pointer;
-            font-family: 'Coolvetica', sans-serif; font-size: 1rem;
-            box-shadow: var(--shadow-gold); transition: all var(--transition);
-        }
-        .login-card button:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(184,134,11,0.45); }
-        .login-error { color: var(--status-taken); text-align: center; margin-top: 0.75rem; min-height: 1.2em; }
-
-        /* Tabs */
-        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
-        .tab-btn {
-            padding: 0.6rem 1.4rem; border: 1px solid var(--border-soft);
-            background: var(--bg-surface); border-radius: 50px; cursor: pointer;
-            font-family: 'Coolvetica', sans-serif; transition: all var(--transition);
-        }
-        .tab-btn.active { background: var(--gradient-gold); color: #fff; border-color: transparent; }
-
-        /* Lists */
-        .admin-section { display: none; }
-        .admin-section.active { display: block; }
-        .admin-list { display: flex; flex-direction: column; gap: 0.6rem; }
-        .admin-item {
-            display: flex; align-items: center; justify-content: space-between;
-            gap: 1rem; padding: 1rem 1.25rem; background: var(--bg-card);
-            border: 1px solid var(--border-soft); border-radius: 12px;
-            transition: all var(--transition); flex-wrap: wrap;
-        }
-        .admin-item:hover { border-color: var(--gold-light); box-shadow: var(--shadow-md); }
-        .admin-item-info { flex: 1; min-width: 200px; }
-        .admin-item-title { font-family: 'Podarok', Georgia, serif; color: var(--text-primary); font-size: 1.05rem; }
-        .admin-item-sub { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.2rem; }
-        .admin-item-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
-        .btn-edit, .btn-delete {
-            padding: 0.4rem 0.9rem; border: 1px solid var(--border-soft);
-            background: var(--bg-surface); border-radius: 8px; cursor: pointer;
-            font-family: 'Coolvetica', sans-serif; font-size: 0.85rem;
+            width: 100%;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 10px;
+            background: var(--gradient-gold);
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Coolvetica', sans-serif;
+            font-size: 1rem;
+            box-shadow: var(--shadow-gold);
             transition: all var(--transition);
         }
-        .btn-edit:hover { border-color: var(--gold-light); color: var(--gold-deep); }
-        .btn-delete:hover { border-color: var(--status-taken); color: var(--status-taken); }
 
-        .add-bar { margin-bottom: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .add-bar input, .add-bar select {
-            padding: 0.6rem 0.9rem; border: 1px solid var(--border-soft);
-            border-radius: 8px; background: var(--bg-surface); color: var(--text-primary);
-            font-family: 'Coolvetica', sans-serif; font-size: 0.9rem;
+        .login-card button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(184, 134, 11, 0.45);
         }
+
+        .login-error {
+            color: var(--status-taken);
+            text-align: center;
+            margin-top: 0.75rem;
+            min-height: 1.2em;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.6rem 1.4rem;
+            border: 1px solid var(--border-soft);
+            background: var(--bg-surface);
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Coolvetica', sans-serif;
+            transition: all var(--transition);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-gold);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        /* Lists */
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .admin-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .admin-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-radius: 12px;
+            transition: all var(--transition);
+            flex-wrap: wrap;
+        }
+
+        .admin-item:hover {
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .admin-item-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .admin-item-title {
+            font-family: 'Podarok', Georgia, serif;
+            color: var(--text-primary);
+            font-size: 1.05rem;
+        }
+
+        .admin-item-sub {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.2rem;
+        }
+
+        .admin-item-actions {
+            display: flex;
+            gap: 0.4rem;
+            flex-shrink: 0;
+        }
+
+        .btn-edit,
+        .btn-delete {
+            padding: 0.4rem 0.9rem;
+            border: 1px solid var(--border-soft);
+            background: var(--bg-surface);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Coolvetica', sans-serif;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+
+        .btn-edit:hover {
+            border-color: var(--gold-light);
+            color: var(--gold-deep);
+        }
+
+        .btn-delete:hover {
+            border-color: var(--status-taken);
+            color: var(--status-taken);
+        }
+
+        .add-bar {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .add-bar input,
+        .add-bar select {
+            padding: 0.6rem 0.9rem;
+            border: 1px solid var(--border-soft);
+            border-radius: 8px;
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            font-family: 'Coolvetica', sans-serif;
+            font-size: 0.9rem;
+        }
+
         .btn-add {
-            padding: 0.6rem 1.3rem; border: none; border-radius: 8px;
-            background: var(--gradient-gold); color: #fff; cursor: pointer;
-            font-family: 'Coolvetica', sans-serif; font-size: 0.9rem;
-            box-shadow: var(--shadow-gold-soft); transition: all var(--transition);
+            padding: 0.6rem 1.3rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--gradient-gold);
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Coolvetica', sans-serif;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow-gold-soft);
+            transition: all var(--transition);
         }
-        .btn-add:hover { transform: translateY(-1px); box-shadow: var(--shadow-gold); }
+
+        .btn-add:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-gold);
+        }
 
         /* Modal */
         .modal-overlay {
-            display: none; position: fixed; inset: 0; background: var(--bg-overlay);
-            backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center;
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
             padding: 1rem;
         }
-        .modal-overlay.active { display: flex; }
-        .modal-box {
-            background: var(--bg-surface); border-radius: 18px; padding: 2rem;
-            max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto;
-            border: 1px solid var(--border-soft); box-shadow: var(--shadow-lg);
+
+        .modal-overlay.active {
+            display: flex;
         }
+
+        .modal-box {
+            background: var(--bg-surface);
+            border-radius: 18px;
+            padding: 2rem;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-lg);
+        }
+
         .modal-box h3 {
-            font-family: 'Podarok', Georgia, serif; color: var(--text-primary);
+            font-family: 'Podarok', Georgia, serif;
+            color: var(--text-primary);
             margin-bottom: 1.25rem;
         }
-        .form-group { margin-bottom: 1rem; }
-        .form-group label { display: block; margin-bottom: 0.35rem; color: var(--text-secondary); font-size: 0.9rem; font-family: 'Coolvetica', sans-serif; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 0.7rem 0.9rem; border: 1px solid var(--border-soft);
-            border-radius: 8px; background: var(--bg-tint); color: var(--text-primary);
-            font-family: 'Coolvetica', sans-serif; font-size: 0.95rem;
+
+        .form-group {
+            margin-bottom: 1rem;
         }
-        .form-group textarea { min-height: 200px; resize: vertical; line-height: 1.6; font-family: monospace; }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none; border-color: var(--gold-light); box-shadow: var(--shadow-gold-soft);
-        }
-        .modal-actions { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1.5rem; }
-        .btn-cancel {
-            padding: 0.65rem 1.3rem; border: 1px solid var(--border-soft);
-            background: var(--bg-surface); border-radius: 8px; cursor: pointer;
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.35rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
             font-family: 'Coolvetica', sans-serif;
         }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid var(--border-soft);
+            border-radius: 8px;
+            background: var(--bg-tint);
+            color: var(--text-primary);
+            font-family: 'Coolvetica', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+            line-height: 1.6;
+            font-family: monospace;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-gold-soft);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .btn-cancel {
+            padding: 0.65rem 1.3rem;
+            border: 1px solid var(--border-soft);
+            background: var(--bg-surface);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Coolvetica', sans-serif;
+        }
+
         .btn-save {
-            padding: 0.65rem 1.3rem; border: none; border-radius: 8px;
-            background: var(--gradient-gold); color: #fff; cursor: pointer;
-            font-family: 'Coolvetica', sans-serif; box-shadow: var(--shadow-gold-soft);
+            padding: 0.65rem 1.3rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--gradient-gold);
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Coolvetica', sans-serif;
+            box-shadow: var(--shadow-gold-soft);
         }
+
         .toast {
-            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-            padding: 0.8rem 1.6rem; border-radius: 50px; background: var(--text-primary);
-            color: var(--bg-base); font-family: 'Coolvetica', sans-serif; z-index: 2000;
-            opacity: 0; transition: opacity 0.3s; pointer-events: none;
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.8rem 1.6rem;
+            border-radius: 50px;
+            background: var(--text-primary);
+            color: var(--bg-base);
+            font-family: 'Coolvetica', sans-serif;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
         }
-        .toast.show { opacity: 1; }
-        .empty-state { text-align: center; padding: 3rem; color: var(--text-muted); font-family: 'Coolvetica', sans-serif; }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            font-family: 'Coolvetica', sans-serif;
+        }
     </style>
 </head>
+
 <body>
-<div class="admin-wrap" id="app">
-    <!-- Login -->
-    <div id="loginView" style="display:none">
-        <div class="login-card">
-            <h2>🔒 Вход в админку</h2>
-            <input type="text" id="loginUsername" placeholder="Логин" autocomplete="username">
-            <input type="password" id="loginPassword" placeholder="Пароль" autocomplete="current-password">
-            <button onclick="doLogin()">Войти</button>
-            <div class="login-error" id="loginError"></div>
+    <div class="admin-wrap" id="app">
+        <!-- Login -->
+        <div id="loginView" style="display:none">
+            <div class="login-card">
+                <h2>🔒 Вход в админку</h2>
+                <input type="text" id="loginUsername" placeholder="Логин" autocomplete="username">
+                <input type="password" id="loginPassword" placeholder="Пароль" autocomplete="current-password">
+                <button onclick="doLogin()">Войти</button>
+                <div class="login-error" id="loginError"></div>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboardView" style="display:none">
+            <div class="admin-header">
+                <h1><img src="phoenix-logo.svg" alt=""
+                        style="width:32px;height:32px;vertical-align:middle;margin-right:0.5rem;"> Админка
+                    PhoenixPerevod</h1>
+                <div style="display:flex;gap:0.5rem;align-items:center;">
+                    <button class="theme-toggle" id="themeToggle" title="Сменить тему">🌙</button>
+                    <button class="logout-btn" onclick="doLogout()">Выйти</button>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="translators"
+                    onclick="switchTab('translators')">Переводчики</button>
+                <button class="tab-btn" data-tab="songs" onclick="switchTab('songs')">Песни</button>
+                <button class="tab-btn" data-tab="users" id="tabBtnUsers" onclick="switchTab('users')"
+                    style="display:none">Пользователи</button>
+            </div>
+
+            <!-- Translators -->
+            <div class="admin-section active" id="tab-translators">
+                <div class="add-bar">
+                    <input id="newTranslatorId" placeholder="ID (латиница, напр. maria)">
+                    <input id="newTranslatorName" placeholder="Имя">
+                    <button class="btn-add" onclick="addTranslator()">+ Добавить переводчика</button>
+                </div>
+                <div class="search-container" style="margin-bottom:1rem;">
+                    <input type="text" class="search-input" id="translatorSearch"
+                        placeholder="Поиск переводчика по имени или ID..." style="padding:0.8rem 1rem;">
+                </div>
+                <div class="admin-list" id="translatorsList"></div>
+            </div>
+
+            <!-- Songs -->
+            <!-- Songs -->
+            <div class="admin-section" id="tab-songs">
+                <div class="add-bar">
+                    <input id="newSongTitle" placeholder="Название песни" style="flex: 2; min-width: 150px;">
+                    <input id="newSongArtist" placeholder="Исполнитель" style="flex: 1.5; min-width: 120px;">
+                    <input id="newSongUrl" placeholder="Ссылка (YouTube и т.п.)" style="flex: 1.5; min-width: 150px;">
+                    <select id="newSongTranslator" style="flex: 1; min-width: 120px;"></select>
+                    <select id="newSongStatus" style="flex: 1; min-width: 100px;">
+                        <option value="free">Свободен</option>
+                        <option value="in_progress">В работе</option>
+                        <option value="taken">Бронь</option>
+                        <option value="done">Готов</option>
+                    </select>
+                    <button class="btn-add" onclick="addSong()">+ Добавить</button>
+                </div>
+                <div class="search-container" style="margin-bottom:1.5rem;">
+                    <input type="text" class="search-input" id="songSearch"
+                        placeholder="Поиск песни по названию или исполнителю..." style="padding:0.8rem 1rem;">
+                </div>
+                <div id="songsByTranslator"></div>
+            </div>
+
+            <!-- Users -->
+            <div class="admin-section" id="tab-users">
+                <div class="add-bar">
+                    <input id="newUserUsername" placeholder="Логин">
+                    <input id="newUserPassword" type="password" placeholder="Пароль">
+                    <select id="newUserRole">
+                        <option value="editor">Редактор</option>
+                        <option value="admin">Админ</option>
+                    </select>
+                    <button class="btn-add" onclick="addUser()">+ Добавить пользователя</button>
+                </div>
+                <div class="admin-list" id="usersList"></div>
+            </div>
         </div>
     </div>
 
-    <!-- Dashboard -->
-    <div id="dashboardView" style="display:none">
-        <div class="admin-header">
-            <h1><img src="phoenix-logo.svg" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:0.5rem;"> Админка PhoenixPerevod</h1>
-            <div style="display:flex;gap:0.5rem;align-items:center;">
-                <button class="theme-toggle" id="themeToggle" title="Сменить тему">🌙</button>
-                <button class="logout-btn" onclick="doLogout()">Выйти</button>
+    <!-- Edit Song Modal -->
+    <div class="modal-overlay" id="songModal">
+        <div class="modal-box">
+            <h3 id="songModalTitle">Редактировать песню</h3>
+            <input type="hidden" id="editSongId">
+            <div class="form-group">
+                <label>Название</label>
+                <input id="editSongTitle">
             </div>
-        </div>
-
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="translators" onclick="switchTab('translators')">Переводчики</button>
-            <button class="tab-btn" data-tab="songs" onclick="switchTab('songs')">Песни</button>
-            <button class="tab-btn" data-tab="users" id="tabBtnUsers" onclick="switchTab('users')" style="display:none">Пользователи</button>
-        </div>
-
-        <!-- Translators -->
-        <div class="admin-section active" id="tab-translators">
-            <div class="add-bar">
-                <input id="newTranslatorId" placeholder="ID (латиница, напр. maria)">
-                <input id="newTranslatorName" placeholder="Имя">
-                <button class="btn-add" onclick="addTranslator()">+ Добавить переводчика</button>
+            <div class="form-group">
+                <label>Исполнитель</label>
+                <input id="editSongArtist">
             </div>
-            <div class="search-container" style="margin-bottom:1rem;">
-                <input type="text" class="search-input" id="translatorSearch" placeholder="Поиск переводчика по имени или ID..." style="padding:0.8rem 1rem;">
+            <div class="form-group">
+                <label>Переводчик</label>
+                <select id="editSongTranslator"></select>
             </div>
-            <div class="admin-list" id="translatorsList"></div>
-        </div>
-
-        <!-- Songs -->
-        <div class="admin-section" id="tab-songs">
-            <div class="add-bar">
-                <input id="newSongTitle" placeholder="Название песни">
-                <input id="newSongArtist" placeholder="Исполнитель">
-                <select id="newSongTranslator"></select>
-                <select id="newSongStatus">
+            <div class="form-group">
+                <label>Статус</label>
+                <select id="editSongStatus">
                     <option value="free">Свободен</option>
                     <option value="in_progress">В работе</option>
                     <option value="taken">Бронь</option>
                     <option value="done">Готов</option>
                 </select>
-                <button class="btn-add" onclick="addSong()">+ Добавить песню</button>
             </div>
-            <div class="search-container" style="margin-bottom:1.5rem;">
-                <input type="text" class="search-input" id="songSearch" placeholder="Поиск песни по названию или исполнителю..." style="padding:0.8rem 1rem;">
+            <div class="form-group">
+                <label>Ссылка (YouTube и т.п.)</label>
+                <input id="editSongUrl">
             </div>
-            <div id="songsByTranslator"></div>
-        </div>
-
-        <!-- Users -->
-        <div class="admin-section" id="tab-users">
-            <div class="add-bar">
-                <input id="newUserUsername" placeholder="Логин">
-                <input id="newUserPassword" type="password" placeholder="Пароль">
-                <select id="newUserRole">
-                    <option value="editor">Редактор</option>
-                    <option value="admin">Админ</option>
-                </select>
-                <button class="btn-add" onclick="addUser()">+ Добавить пользователя</button>
+            <div class="form-group">
+                <label>Текст перевода</label>
+                <textarea id="editSongTranslation" placeholder="Текст перевода..."></textarea>
             </div>
-            <div class="admin-list" id="usersList"></div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeSongModal()">Отмена</button>
+                <button class="btn-save" onclick="saveSong()">Сохранить</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Edit Song Modal -->
-<div class="modal-overlay" id="songModal">
-    <div class="modal-box">
-        <h3 id="songModalTitle">Редактировать песню</h3>
-        <input type="hidden" id="editSongId">
-        <div class="form-group">
-            <label>Название</label>
-            <input id="editSongTitle">
-        </div>
-        <div class="form-group">
-            <label>Исполнитель</label>
-            <input id="editSongArtist">
-        </div>
-        <div class="form-group">
-            <label>Переводчик</label>
-            <select id="editSongTranslator"></select>
-        </div>
-        <div class="form-group">
-            <label>Статус</label>
-            <select id="editSongStatus">
-                <option value="free">Свободен</option>
-                <option value="in_progress">В работе</option>
-                <option value="taken">Бронь</option>
-                <option value="done">Готов</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Ссылка (YouTube и т.п.)</label>
-            <input id="editSongUrl">
-        </div>
-        <div class="form-group">
-            <label>Текст перевода</label>
-            <textarea id="editSongTranslation" placeholder="Текст перевода..."></textarea>
-        </div>
-        <div class="modal-actions">
-            <button class="btn-cancel" onclick="closeSongModal()">Отмена</button>
-            <button class="btn-save" onclick="saveSong()">Сохранить</button>
-        </div>
-    </div>
-</div>
+    <div class="toast" id="toast"></div>
 
-<div class="toast" id="toast"></div>
+    <script>
+        const TOKEN_KEY = 'phoenix_admin_token';
+        const ROLE_KEY = 'phoenix_admin_role';
+        const statusLabels = { free: 'Свободен', in_progress: 'В работе', taken: 'Бронь', done: 'Готов' };
+        const roleLabels = { admin: 'Админ', editor: 'Редактор' };
+        let allTranslators = [];
+        let allSongs = [];
+        let allUsers = [];
+        let currentTab = 'translators';
 
-<script>
-const TOKEN_KEY = 'phoenix_admin_token';
-const ROLE_KEY = 'phoenix_admin_role';
-const statusLabels = { free: 'Свободен', in_progress: 'В работе', taken: 'Бронь', done: 'Готов' };
-const roleLabels = { admin: 'Админ', editor: 'Редактор' };
-let allTranslators = [];
-let allSongs = [];
-let allUsers = [];
-let currentTab = 'translators';
+        function getToken() { return localStorage.getItem(TOKEN_KEY); }
+        function setToken(t) { localStorage.setItem(TOKEN_KEY, t); }
+        function clearToken() { localStorage.removeItem(TOKEN_KEY); }
+        function getRole() { return localStorage.getItem(ROLE_KEY); }
+        function setRole(r) { localStorage.setItem(ROLE_KEY, r); }
+        function clearRole() { localStorage.removeItem(ROLE_KEY); }
 
-function getToken() { return localStorage.getItem(TOKEN_KEY); }
-function setToken(t) { localStorage.setItem(TOKEN_KEY, t); }
-function clearToken() { localStorage.removeItem(TOKEN_KEY); }
-function getRole() { return localStorage.getItem(ROLE_KEY); }
-function setRole(r) { localStorage.setItem(ROLE_KEY, r); }
-function clearRole() { localStorage.removeItem(ROLE_KEY); }
+        function toast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 2200);
+        }
 
-function toast(msg) {
-    const el = document.getElementById('toast');
-    el.textContent = msg;
-    el.classList.add('show');
-    setTimeout(() => el.classList.remove('show'), 2200);
-}
+        async function api(path, options = {}) {
+            const token = getToken();
+            const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+            if (token) headers['Authorization'] = `Bearer ${token}`;
+            const res = await fetch(path, { ...options, headers });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(data.error || `Ошибка ${res.status}`);
+            return data;
+        }
 
-async function api(path, options = {}) {
-    const token = getToken();
-    const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-    const res = await fetch(path, { ...options, headers });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error || `Ошибка ${res.status}`);
-    return data;
-}
+        // ---------- Login ----------
+        function showLogin() {
+            document.getElementById('loginView').style.display = 'block';
+            document.getElementById('dashboardView').style.display = 'none';
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('loginError').textContent = '';
+            document.getElementById('loginUsername').focus();
+        }
 
-// ---------- Login ----------
-function showLogin() {
-    document.getElementById('loginView').style.display = 'block';
-    document.getElementById('dashboardView').style.display = 'none';
-    document.getElementById('loginUsername').value = '';
-    document.getElementById('loginPassword').value = '';
-    document.getElementById('loginError').textContent = '';
-    document.getElementById('loginUsername').focus();
-}
+        function showDashboard() {
+            document.getElementById('loginView').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'block';
+            // Вкладка «Пользователи» только для админов
+            const isAdmin = getRole() === 'admin';
+            document.getElementById('tabBtnUsers').style.display = isAdmin ? '' : 'none';
+            loadData();
+        }
 
-function showDashboard() {
-    document.getElementById('loginView').style.display = 'none';
-    document.getElementById('dashboardView').style.display = 'block';
-    // Вкладка «Пользователи» только для админов
-    const isAdmin = getRole() === 'admin';
-    document.getElementById('tabBtnUsers').style.display = isAdmin ? '' : 'none';
-    loadData();
-}
-
-async function doLogin() {
-    const username = document.getElementById('loginUsername').value.trim();
-    const password = document.getElementById('loginPassword').value;
-    if (!password) return;
-    try {
-        const data = await api('/api/login', { method: 'POST', body: JSON.stringify({ username, password }) });
-        setToken(data.token);
-        setRole(data.role || 'admin');
-        showDashboard();
-    } catch (e) {
-        document.getElementById('loginError').textContent = e.message;
-    }
-}
-
-function doLogout() {
-    clearToken();
-    clearRole();
-    showLogin();
-}
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && document.getElementById('loginView').style.display !== 'none') {
-        doLogin();
-    }
-});
-
-// ---------- Tabs ----------
-function switchTab(tab) {
-    currentTab = tab;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-    document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-    document.getElementById('tab-' + tab).classList.add('active');
-    if (tab === 'translators') renderTranslators();
-    else if (tab === 'songs') renderSongs();
-    else if (tab === 'users') renderUsers();
-}
-
-// ---------- Load data ----------
-async function loadData() {
-    try {
-        const data = await api('/api/songs');
-        allTranslators = data.translators;
-        allSongs = [];
-        allTranslators.forEach(t => t.songs.forEach(s => allSongs.push({ ...s, translator_id: t.id })));
-        populateTranslatorSelects();
-
-        // Загружаем пользователей только для админов
-        if (getRole() === 'admin') {
+        async function doLogin() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            if (!password) return;
             try {
-                allUsers = await api('/api/admin/user');
+                const data = await api('/api/login', { method: 'POST', body: JSON.stringify({ username, password }) });
+                setToken(data.token);
+                setRole(data.role || 'admin');
+                showDashboard();
             } catch (e) {
-                allUsers = [];
+                document.getElementById('loginError').textContent = e.message;
             }
         }
 
-        if (currentTab === 'translators') renderTranslators();
-        else if (currentTab === 'songs') renderSongs();
-        else if (currentTab === 'users') renderUsers();
-    } catch (e) {
-        toast('Ошибка загрузки: ' + e.message);
-    }
-}
+        function doLogout() {
+            clearToken();
+            clearRole();
+            showLogin();
+        }
 
-function populateTranslatorSelects() {
-    const opts = allTranslators.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
-    document.getElementById('newSongTranslator').innerHTML = opts;
-    document.getElementById('editSongTranslator').innerHTML = opts;
-}
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && document.getElementById('loginView').style.display !== 'none') {
+                doLogin();
+            }
+        });
 
-// ---------- Translators ----------
-function renderTranslators() {
-    const list = document.getElementById('translatorsList');
-    const q = (document.getElementById('translatorSearch')?.value || '').trim().toLowerCase();
-    const filtered = q
-        ? allTranslators.filter(t => t.name.toLowerCase().includes(q) || t.id.toLowerCase().includes(q))
-        : allTranslators;
-    if (filtered.length === 0) {
-        list.innerHTML = '<div class="empty-state">Ничего не найдено</div>';
-        return;
-    }
-    list.innerHTML = filtered.map(t => `
+        // ---------- Tabs ----------
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            if (tab === 'translators') renderTranslators();
+            else if (tab === 'songs') renderSongs();
+            else if (tab === 'users') renderUsers();
+        }
+
+        // ---------- Load data ----------
+        async function loadData() {
+            try {
+                const data = await api('/api/songs');
+                allTranslators = data.translators;
+                allSongs = [];
+                allTranslators.forEach(t => t.songs.forEach(s => allSongs.push({ ...s, translator_id: t.id })));
+                populateTranslatorSelects();
+
+                // Загружаем пользователей только для админов
+                if (getRole() === 'admin') {
+                    try {
+                        allUsers = await api('/api/admin/user');
+                    } catch (e) {
+                        allUsers = [];
+                    }
+                }
+
+                if (currentTab === 'translators') renderTranslators();
+                else if (currentTab === 'songs') renderSongs();
+                else if (currentTab === 'users') renderUsers();
+            } catch (e) {
+                toast('Ошибка загрузки: ' + e.message);
+            }
+        }
+
+        function populateTranslatorSelects() {
+            const opts = allTranslators.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+            document.getElementById('newSongTranslator').innerHTML = opts;
+            document.getElementById('editSongTranslator').innerHTML = opts;
+        }
+
+        // ---------- Translators ----------
+        function renderTranslators() {
+            const list = document.getElementById('translatorsList');
+            const q = (document.getElementById('translatorSearch')?.value || '').trim().toLowerCase();
+            const filtered = q
+                ? allTranslators.filter(t => t.name.toLowerCase().includes(q) || t.id.toLowerCase().includes(q))
+                : allTranslators;
+            if (filtered.length === 0) {
+                list.innerHTML = '<div class="empty-state">Ничего не найдено</div>';
+                return;
+            }
+            list.innerHTML = filtered.map(t => `
         <div class="admin-item">
             <div class="admin-item-info">
                 <div class="admin-item-title">${escapeHtml(t.name)}</div>
@@ -413,68 +650,68 @@ function renderTranslators() {
             </div>
         </div>
     `).join('');
-}
-
-function countSongs(translatorId) {
-    return allSongs.filter(s => s.translator_id === translatorId).length;
-}
-
-async function addTranslator() {
-    const id = document.getElementById('newTranslatorId').value.trim();
-    const name = document.getElementById('newTranslatorName').value.trim();
-    if (!id || !name) { toast('Заполни ID и имя'); return; }
-    try {
-        await api('/api/admin/translator', { method: 'POST', body: JSON.stringify({ id, name }) });
-        document.getElementById('newTranslatorId').value = '';
-        document.getElementById('newTranslatorName').value = '';
-        toast('Переводчик добавлен');
-        loadData();
-    } catch (e) { toast(e.message); }
-}
-
-async function editTranslator(id) {
-    const name = prompt('Новое имя переводчика:', allTranslators.find(t => t.id === id).name);
-    if (name === null || !name.trim()) return;
-    try {
-        await api('/api/admin/translator', { method: 'PUT', body: JSON.stringify({ id, name: name.trim() }) });
-        toast('Имя обновлено');
-        loadData();
-    } catch (e) { toast(e.message); }
-}
-
-async function deleteTranslator(id) {
-    const count = countSongs(id);
-    if (!confirm(`Удалить переводчика${count > 0 ? ` и все его ${count} песен` : ''}?`)) return;
-    try {
-        await api(`/api/admin/translator?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
-        toast('Переводчик удалён');
-        loadData();
-    } catch (e) { toast(e.message); }
-}
-
-// ---------- Songs ----------
-function renderSongs() {
-    const container = document.getElementById('songsByTranslator');
-    if (allTranslators.length === 0) {
-        container.innerHTML = '<div class="empty-state">Сначала добавь переводчиков</div>';
-        return;
-    }
-    const q = (document.getElementById('songSearch')?.value || '').trim().toLowerCase();
-    container.innerHTML = allTranslators.map(t => {
-        let songs = allSongs.filter(s => s.translator_id === t.id);
-        if (q) {
-            songs = songs.filter(s =>
-                s.title.toLowerCase().includes(q) ||
-                (s.artist || '').toLowerCase().includes(q)
-            );
         }
-        if (q && songs.length === 0) return '';
-        return `
+
+        function countSongs(translatorId) {
+            return allSongs.filter(s => s.translator_id === translatorId).length;
+        }
+
+        async function addTranslator() {
+            const id = document.getElementById('newTranslatorId').value.trim();
+            const name = document.getElementById('newTranslatorName').value.trim();
+            if (!id || !name) { toast('Заполни ID и имя'); return; }
+            try {
+                await api('/api/admin/translator', { method: 'POST', body: JSON.stringify({ id, name }) });
+                document.getElementById('newTranslatorId').value = '';
+                document.getElementById('newTranslatorName').value = '';
+                toast('Переводчик добавлен');
+                loadData();
+            } catch (e) { toast(e.message); }
+        }
+
+        async function editTranslator(id) {
+            const name = prompt('Новое имя переводчика:', allTranslators.find(t => t.id === id).name);
+            if (name === null || !name.trim()) return;
+            try {
+                await api('/api/admin/translator', { method: 'PUT', body: JSON.stringify({ id, name: name.trim() }) });
+                toast('Имя обновлено');
+                loadData();
+            } catch (e) { toast(e.message); }
+        }
+
+        async function deleteTranslator(id) {
+            const count = countSongs(id);
+            if (!confirm(`Удалить переводчика${count > 0 ? ` и все его ${count} песен` : ''}?`)) return;
+            try {
+                await api(`/api/admin/translator?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+                toast('Переводчик удалён');
+                loadData();
+            } catch (e) { toast(e.message); }
+        }
+
+        // ---------- Songs ----------
+        function renderSongs() {
+            const container = document.getElementById('songsByTranslator');
+            if (allTranslators.length === 0) {
+                container.innerHTML = '<div class="empty-state">Сначала добавь переводчиков</div>';
+                return;
+            }
+            const q = (document.getElementById('songSearch')?.value || '').trim().toLowerCase();
+            container.innerHTML = allTranslators.map(t => {
+                let songs = allSongs.filter(s => s.translator_id === t.id);
+                if (q) {
+                    songs = songs.filter(s =>
+                        s.title.toLowerCase().includes(q) ||
+                        (s.artist || '').toLowerCase().includes(q)
+                    );
+                }
+                if (q && songs.length === 0) return '';
+                return `
             <div style="margin-bottom: 2rem;">
                 <h2 class="translator-title" style="font-family:'Podarok',Georgia,serif;color:var(--text-primary);margin-bottom:0.75rem;">${escapeHtml(t.name)} (${songs.length})</h2>
                 <div class="admin-list">
                     ${songs.length === 0 ? '<div class="empty-state" style="padding:1.5rem">Нет песен</div>' :
-                    songs.map(s => `
+                        songs.map(s => `
                         <div class="admin-item">
                             <div class="admin-item-info">
                                 <div class="admin-item-title">${escapeHtml(s.title)}</div>
@@ -489,79 +726,91 @@ function renderSongs() {
                 </div>
             </div>
         `;
-    }).join('');
-}
+            }).join('');
+        }
 
-async function addSong() {
-    const title = document.getElementById('newSongTitle').value.trim();
-    const artist = document.getElementById('newSongArtist').value.trim();
-    const translator_id = document.getElementById('newSongTranslator').value;
-    const status = document.getElementById('newSongStatus').value;
-    if (!title) { toast('Введи название'); return; }
-    try {
-        await api('/api/admin/song', { method: 'POST', body: JSON.stringify({ title, artist, translator_id, status }) });
-        document.getElementById('newSongTitle').value = '';
-        document.getElementById('newSongArtist').value = '';
-        toast('Песня добавлена. Открой её для редактирования текста.');
-        loadData();
-    } catch (e) { toast(e.message); }
-}
+        async function addSong() {
+            const title = document.getElementById('newSongTitle').value.trim();
+            const artist = document.getElementById('newSongArtist').value.trim();
+            const url = document.getElementById('newSongUrl').value.trim(); // <-- Добавили чтение ссылки
+            const translator_id = document.getElementById('newSongTranslator').value;
+            const status = document.getElementById('newSongStatus').value;
 
-function editSong(id) {
-    const song = allSongs.find(s => s.id === id);
-    if (!song) return;
-    document.getElementById('editSongId').value = song.id;
-    document.getElementById('editSongTitle').value = song.title;
-    document.getElementById('editSongArtist').value = song.artist || '';
-    document.getElementById('editSongTranslator').value = song.translator_id;
-    document.getElementById('editSongStatus').value = song.status;
-    document.getElementById('editSongUrl').value = song.url || '';
-    document.getElementById('editSongTranslation').value = song.translation || '';
-    document.getElementById('songModalTitle').textContent = `Редактировать: ${song.title}`;
-    document.getElementById('songModal').classList.add('active');
-}
+            if (!title) { toast('Введи название'); return; }
 
-function closeSongModal() {
-    document.getElementById('songModal').classList.remove('active');
-}
+            try {
+                await api('/api/admin/song', {
+                    method: 'POST',
+                    body: JSON.stringify({ title, artist, url, translator_id, status }) // <-- Добавили url в отправку
+                });
 
-async function saveSong() {
-    const id = parseInt(document.getElementById('editSongId').value, 10);
-    const payload = {
-        id,
-        title: document.getElementById('editSongTitle').value.trim(),
-        artist: document.getElementById('editSongArtist').value.trim(),
-        translator_id: document.getElementById('editSongTranslator').value,
-        status: document.getElementById('editSongStatus').value,
-        url: document.getElementById('editSongUrl').value.trim(),
-        translation: document.getElementById('editSongTranslation').value
-    };
-    if (!payload.title) { toast('Название не может быть пустым'); return; }
-    try {
-        await api('/api/admin/song', { method: 'PUT', body: JSON.stringify(payload) });
-        toast('Сохранено');
-        closeSongModal();
-        loadData();
-    } catch (e) { toast(e.message); }
-}
+                // Очищаем поля после успешного добавления
+                document.getElementById('newSongTitle').value = '';
+                document.getElementById('newSongArtist').value = '';
+                document.getElementById('newSongUrl').value = ''; // <-- Очищаем поле ссылки
 
-async function deleteSong(id) {
-    if (!confirm('Удалить эту песню?')) return;
-    try {
-        await api(`/api/admin/song?id=${id}`, { method: 'DELETE' });
-        toast('Песня удалена');
-        loadData();
-    } catch (e) { toast(e.message); }
-}
+                toast('Песня добавлена!');
+                loadData();
+            } catch (e) {
+                toast(e.message);
+            }
+        }
 
-// ---------- Users ----------
-function renderUsers() {
-    const list = document.getElementById('usersList');
-    if (!allUsers || allUsers.length === 0) {
-        list.innerHTML = '<div class="empty-state">Нет пользователей. Добавьте первого.</div>';
-        return;
-    }
-    list.innerHTML = allUsers.map(u => `
+        function editSong(id) {
+            const song = allSongs.find(s => s.id === id);
+            if (!song) return;
+            document.getElementById('editSongId').value = song.id;
+            document.getElementById('editSongTitle').value = song.title;
+            document.getElementById('editSongArtist').value = song.artist || '';
+            document.getElementById('editSongTranslator').value = song.translator_id;
+            document.getElementById('editSongStatus').value = song.status;
+            document.getElementById('editSongUrl').value = song.url || '';
+            document.getElementById('editSongTranslation').value = song.translation || '';
+            document.getElementById('songModalTitle').textContent = `Редактировать: ${song.title}`;
+            document.getElementById('songModal').classList.add('active');
+        }
+
+        function closeSongModal() {
+            document.getElementById('songModal').classList.remove('active');
+        }
+
+        async function saveSong() {
+            const id = parseInt(document.getElementById('editSongId').value, 10);
+            const payload = {
+                id,
+                title: document.getElementById('editSongTitle').value.trim(),
+                artist: document.getElementById('editSongArtist').value.trim(),
+                translator_id: document.getElementById('editSongTranslator').value,
+                status: document.getElementById('editSongStatus').value,
+                url: document.getElementById('editSongUrl').value.trim(),
+                translation: document.getElementById('editSongTranslation').value
+            };
+            if (!payload.title) { toast('Название не может быть пустым'); return; }
+            try {
+                await api('/api/admin/song', { method: 'PUT', body: JSON.stringify(payload) });
+                toast('Сохранено');
+                closeSongModal();
+                loadData();
+            } catch (e) { toast(e.message); }
+        }
+
+        async function deleteSong(id) {
+            if (!confirm('Удалить эту песню?')) return;
+            try {
+                await api(`/api/admin/song?id=${id}`, { method: 'DELETE' });
+                toast('Песня удалена');
+                loadData();
+            } catch (e) { toast(e.message); }
+        }
+
+        // ---------- Users ----------
+        function renderUsers() {
+            const list = document.getElementById('usersList');
+            if (!allUsers || allUsers.length === 0) {
+                list.innerHTML = '<div class="empty-state">Нет пользователей. Добавьте первого.</div>';
+                return;
+            }
+            list.innerHTML = allUsers.map(u => `
         <div class="admin-item">
             <div class="admin-item-info">
                 <div class="admin-item-title">${escapeHtml(u.username)}</div>
@@ -574,99 +823,100 @@ function renderUsers() {
             </div>
         </div>
     `).join('');
-}
-
-async function addUser() {
-    const username = document.getElementById('newUserUsername').value.trim();
-    const password = document.getElementById('newUserPassword').value;
-    const role = document.getElementById('newUserRole').value;
-    if (!username || !password) { toast('Заполни логин и пароль'); return; }
-    try {
-        await api('/api/admin/user', { method: 'POST', body: JSON.stringify({ username, password, role }) });
-        document.getElementById('newUserUsername').value = '';
-        document.getElementById('newUserPassword').value = '';
-        toast('Пользователь добавлен');
-        loadData();
-    } catch (e) { toast(e.message); }
-}
-
-async function editUserRole(id) {
-    const user = allUsers.find(u => u.id === id);
-    if (!user) return;
-    const role = prompt('Роль (admin или editor):', user.role);
-    if (role === null) return;
-    const clean = role.trim();
-    if (clean !== 'admin' && clean !== 'editor') { toast('Только admin или editor'); return; }
-    try {
-        await api('/api/admin/user', { method: 'PUT', body: JSON.stringify({ id, role: clean }) });
-        toast('Роль обновлена');
-        loadData();
-    } catch (e) { toast(e.message); }
-}
-
-async function resetUserPassword(id) {
-    const password = prompt('Новый пароль для пользователя:');
-    if (password === null || !password.trim()) return;
-    try {
-        await api('/api/admin/user', { method: 'PUT', body: JSON.stringify({ id, password: password.trim() }) });
-        toast('Пароль обновлён');
-    } catch (e) { toast(e.message); }
-}
-
-async function deleteUser(id) {
-    if (!confirm('Удалить этого пользователя?')) return;
-    try {
-        await api(`/api/admin/user?id=${id}`, { method: 'DELETE' });
-        toast('Пользователь удалён');
-        loadData();
-    } catch (e) { toast(e.message); }
-}
-
-function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-}
-
-// Close modal on backdrop click
-document.getElementById('songModal').addEventListener('click', (e) => {
-    if (e.target.id === 'songModal') closeSongModal();
-});
-
-// Поиск
-document.addEventListener('input', (e) => {
-    if (e.target.id === 'songSearch') renderSongs();
-    if (e.target.id === 'translatorSearch') renderTranslators();
-});
-
-// Тема
-(function() {
-    const saved = localStorage.getItem('phoenix_theme') || 'light';
-    document.documentElement.setAttribute('data-theme', saved);
-    const updateIcon = () => {
-        const btn = document.getElementById('themeToggle');
-        if (!btn) return;
-        const t = document.documentElement.getAttribute('data-theme');
-        btn.textContent = t === 'light' ? '🌙' : '☀️';
-    };
-    updateIcon();
-    document.addEventListener('click', (e) => {
-        if (e.target.id === 'themeToggle') {
-            const cur = document.documentElement.getAttribute('data-theme');
-            const next = cur === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('phoenix_theme', next);
-            updateIcon();
         }
-    });
-})();
 
-// Init
-if (getToken()) {
-    showDashboard();
-} else {
-    showLogin();
-}
-</script>
+        async function addUser() {
+            const username = document.getElementById('newUserUsername').value.trim();
+            const password = document.getElementById('newUserPassword').value;
+            const role = document.getElementById('newUserRole').value;
+            if (!username || !password) { toast('Заполни логин и пароль'); return; }
+            try {
+                await api('/api/admin/user', { method: 'POST', body: JSON.stringify({ username, password, role }) });
+                document.getElementById('newUserUsername').value = '';
+                document.getElementById('newUserPassword').value = '';
+                toast('Пользователь добавлен');
+                loadData();
+            } catch (e) { toast(e.message); }
+        }
+
+        async function editUserRole(id) {
+            const user = allUsers.find(u => u.id === id);
+            if (!user) return;
+            const role = prompt('Роль (admin или editor):', user.role);
+            if (role === null) return;
+            const clean = role.trim();
+            if (clean !== 'admin' && clean !== 'editor') { toast('Только admin или editor'); return; }
+            try {
+                await api('/api/admin/user', { method: 'PUT', body: JSON.stringify({ id, role: clean }) });
+                toast('Роль обновлена');
+                loadData();
+            } catch (e) { toast(e.message); }
+        }
+
+        async function resetUserPassword(id) {
+            const password = prompt('Новый пароль для пользователя:');
+            if (password === null || !password.trim()) return;
+            try {
+                await api('/api/admin/user', { method: 'PUT', body: JSON.stringify({ id, password: password.trim() }) });
+                toast('Пароль обновлён');
+            } catch (e) { toast(e.message); }
+        }
+
+        async function deleteUser(id) {
+            if (!confirm('Удалить этого пользователя?')) return;
+            try {
+                await api(`/api/admin/user?id=${id}`, { method: 'DELETE' });
+                toast('Пользователь удалён');
+                loadData();
+            } catch (e) { toast(e.message); }
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('songModal').addEventListener('click', (e) => {
+            if (e.target.id === 'songModal') closeSongModal();
+        });
+
+        // Поиск
+        document.addEventListener('input', (e) => {
+            if (e.target.id === 'songSearch') renderSongs();
+            if (e.target.id === 'translatorSearch') renderTranslators();
+        });
+
+        // Тема
+        (function () {
+            const saved = localStorage.getItem('phoenix_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            const updateIcon = () => {
+                const btn = document.getElementById('themeToggle');
+                if (!btn) return;
+                const t = document.documentElement.getAttribute('data-theme');
+                btn.textContent = t === 'light' ? '🌙' : '☀️';
+            };
+            updateIcon();
+            document.addEventListener('click', (e) => {
+                if (e.target.id === 'themeToggle') {
+                    const cur = document.documentElement.getAttribute('data-theme');
+                    const next = cur === 'light' ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('phoenix_theme', next);
+                    updateIcon();
+                }
+            });
+        })();
+
+        // Init
+        if (getToken()) {
+            showDashboard();
+        } else {
+            showLogin();
+        }
+    </script>
 </body>
+
 </html>
