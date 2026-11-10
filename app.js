@@ -75,6 +75,7 @@ function buildTranslatorFilters() {
     const container = document.getElementById('translatorFilters');
     const allBtn = container.querySelector('[data-translator="all"]');
     container.innerHTML = '';
+    allBtn.onclick = () => setFilter('translator', 'all');
     container.appendChild(allBtn);
     allTranslators.forEach(t => {
         const btn = document.createElement('button');
